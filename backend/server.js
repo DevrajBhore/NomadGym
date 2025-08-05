@@ -33,6 +33,8 @@ app.use("/api/bookings", bookingRoutes)
 app.use("/api/availability", availabilityRoutes)
 app.use("/api/recurring", recurringRoutes)
 
+app.get('/healthz', (req, res) => res.send('ok'));
+
 app.get("/", (req, res) => {
   res.send(" NomadGym API is running!");
 });

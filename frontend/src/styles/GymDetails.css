@@ -1,0 +1,302 @@
+/* General container */
+.gym-details-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem;
+  background: #ffffff00;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Header section with image */
+.gym-details-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.gym-card-image-wrapper {
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  background-color: black;
+}
+
+.gym-card-image,
+.swiper-slide img {
+  width: 100% !important;
+  height: 320px !important;
+  object-fit: contain !important;
+  border-radius: 12px !important;
+  display: block !important;
+  margin: 0 auto !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+  background-color: black;
+}
+
+.gym-card-content {
+  padding: 1rem;
+}
+
+.gym-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--color-apple-dark);
+}
+
+.gym-description {
+  font-size: 0.95rem;
+  color: var(--color-gray-700);
+  margin-bottom: 0.5rem;
+}
+
+.gym-city,
+.gym-rating {
+  font-size: 0.9rem;
+  color: var(--color-gray-600);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 0.25rem;
+}
+
+.gyms-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+
+
+/* Swiper container */
+.gym-carousel {
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+/* Responsive and neat image sizing */
+.swiper-slide img,
+.gym-details-image,
+.dashboard-gym-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.gym-details-header h1 {
+  font-size: 2rem;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.gym-location {
+  color: #f7f7f7;
+  margin: 0.5rem 0;
+}
+
+.direction-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.6rem;
+  border: none;
+  cursor: pointer;
+  margin: 0.5rem 0;
+  transition: background 0.3s ease;
+}
+
+.direction-button:hover {
+  background-color: #2563eb;
+}
+
+.gym-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  color: #10b981;
+}
+
+.gym-phone {
+  margin-top: 0.2rem;
+  color: #555;
+}
+
+/* Section styles */
+.gym-details-section {
+  margin-top: 2rem;
+}
+
+.gym-details-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.amenities-list {
+  list-style: disc inside;
+  color: #ffffff;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5rem;
+  padding-left: 0;
+}
+
+/* Availability cards */
+.availability-overview-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.overview-card {
+  background: #f9fafb00;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.overview-list {
+  padding-left: 0;
+  list-style: none;
+  margin-top: 0.5rem;
+  color: #333;
+}
+
+.no-availability-message {
+  color: #fff8f8;
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+/* Date picker & slots */
+.availability-form {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-base {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  /* max-width: 250px; */
+}
+
+.availability-slots h3 {
+  margin-bottom: 0.75rem;
+}
+
+.overview-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.overview-list li {
+  background: #f9f9fb;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #6366f1; /* primary accent color */
+  padding: 1rem;
+  border-radius: 0.75rem;
+  transition: background 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.overview-list li:hover {
+  background: #f3f4f6;
+}
+
+.overview-list strong {
+  color: #374151; /* dark text */
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+@media (min-width: 640px) {
+  .overview-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .overview-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+.slots-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.slot-button {
+  padding: 0.5rem 1rem;
+  background-color: #3b82f6;
+  color: rgb(12, 12, 12);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.slot-button:hover {
+  background-color: #2563eb;
+}
+
+/* Back link */
+.back-link {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.button-secondary {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background-color: #e5e7eb;
+  color: #111827;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.button-secondary:hover {
+  background-color: #d1d5db;
+}
+
+/* Error state */
+.error-message-center {
+  text-align: center;
+  padding: 2rem;
+  color: red;
+  font-weight: 500;
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .gym-details-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .gym-price {
+    font-size: 1rem;
+  }
+
+  .slot-button {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+}

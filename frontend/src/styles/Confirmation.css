@@ -1,0 +1,131 @@
+.confirmation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    background-color: var(--color-apple-light-gray);
+  }
+  
+  .confirmation-card {
+    width: 100%;
+    max-width: 550px;
+    padding: 2.5rem;
+    text-align: center;
+  }
+  
+  .confirmation-card h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+  }
+  
+  .confirmation-message {
+    font-size: 1.1rem;
+    color: var(--color-gray-700);
+    margin-bottom: 1.5rem;
+  }
+  
+  .confirmation-message.error {
+    color: var(--color-apple-red);
+    font-weight: 600;
+  }
+  
+  .icon-success {
+    font-size: 4rem;
+    color: var(--color-apple-green);
+    margin-bottom: 1.25rem;
+  }
+  
+  .icon-error {
+    font-size: 4rem;
+    color: var(--color-apple-red);
+    margin-bottom: 1.25rem;
+  }
+  
+  .booking-summary {
+    background-color: var(--color-apple-light-gray);
+    border: 1px solid var(--color-gray-200);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+  
+  .booking-summary p {
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+    color: var(--color-gray-700);
+  }
+  
+  .booking-summary p strong {
+    color: var(--color-apple-dark);
+  }
+  
+  .booking-summary .amount-paid {
+    color: var(--color-apple-blue);
+    font-weight: 700;
+  }
+  
+  .otp-code {
+    display: inline-block;
+    background-color: var(--color-apple-dark);
+    color: var(--color-apple-yellow);
+    font-weight: 700;
+    font-size: 1.5rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    margin-left: 0.5rem;
+  }
+  
+  .otp-note {
+    font-size: 0.875rem;
+    color: var(--color-gray-600);
+    margin-top: 0.5rem;
+  }
+  
+  .confirmation-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .view-bookings-button,
+  .explore-more-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    text-align: center;
+  }
+  
+  .view-bookings-button {
+    background-color: var(--color-apple-blue);
+    color: var(--color-white);
+  }
+  
+  .view-bookings-button:hover {
+    background-color: #005bbd;
+    transform: translateY(-1px);
+  }
+  
+  .explore-more-button {
+    background-color: var(--color-gray-200);
+    color: var(--color-gray-800);
+  }
+  
+  .explore-more-button:hover {
+    background-color: var(--color-gray-300);
+    transform: translateY(-1px);
+  }
+  
+  /* Responsive adjustments */
+  @media (min-width: 640px) {
+    .confirmation-actions {
+      flex-direction: row;
+    }
+  }
+  

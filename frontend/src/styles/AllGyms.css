@@ -1,0 +1,260 @@
+:root {
+  --bg-gradient: linear-gradient(135deg, #1e1e2f, #29293d);
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --text-color: #ffffff;
+  --accent-color: #00ffd5;
+  --hover-shadow: 0 8px 30px rgba(0, 255, 213, 0.2);
+  --blur: 15px;
+}
+
+body {
+  background: var(--bg-gradient);
+  color: var(--text-color);
+  font-family: "Poppins", sans-serif;
+}
+
+/* Container */
+.all-gyms-container {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.all-gyms-container h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+
+  /* Gradient Text */
+  background: linear-gradient(90deg, #00ffd5, #00c3ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+
+  /* Text Shadow for Glow Effect */
+  text-shadow: 0 0 5px rgba(0, 255, 213, 0.2), 0 0 10px rgba(0, 255, 213, 0.3),
+    0 0 15px rgba(0, 255, 213, 0.25);
+
+  /* Animation */
+  animation: fadeInDown 0.6s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Responsive for smaller devices */
+@media (max-width: 480px) {
+  .all-gyms-container h2 {
+    font-size: 2rem;
+  }
+}
+
+/* Search Bar */
+.gym-search-bar {
+  display: flex;
+  justify-content: center;
+  margin: 2rem auto;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.6s ease-in-out;
+}
+
+.gym-search-bar input {
+  padding: 0.9rem 1.2rem;
+  border-radius: 14px;
+  border: none;
+  width: 100%;
+  max-width: 480px;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+}
+
+.gym-search-bar input::placeholder {
+  color: #ccc;
+}
+
+.gym-search-bar input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+/* Grid */
+.gym-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1.8rem;
+  margin-top: 2rem;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Card */
+/* Container Grid */
+.gym-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+/* Glass-style Gym Card */
+.gym-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+/* Animate in */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover Interaction */
+.gym-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+/* Gym card content (adjust as per your GymCard component) */
+.gym-card h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #00ffe0;
+}
+
+.gym-card p {
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  color: #e0f7fa;
+}
+
+
+.gym-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--hover-shadow);
+}
+
+/* No content message */
+.no-content-message {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  color: #ccc;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Back button */
+.back-to-explore {
+  margin-top: 3rem;
+  animation: fadeInUp 0.6s ease;
+}
+
+.button-secondary {
+  padding: 0.8rem 1.6rem;
+  border-radius: 12px;
+  border: 1px solid var(--accent-color);
+  background-color: transparent;
+  color: var(--accent-color);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.button-secondary:hover {
+  background-color: var(--accent-color);
+  color: #000;
+  box-shadow: 0 6px 12px rgba(0, 255, 213, 0.25);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .all-gyms-container h2 {
+    font-size: 2rem;
+  }
+
+  .gym-search-bar {
+    margin-top: 1.2rem;
+  }
+
+  .gym-search-bar input {
+    font-size: 0.95rem;
+    padding: 0.8rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gym-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gym-search-bar input {
+    max-width: 100%;
+  }
+
+  .button-secondary {
+    width: 100%;
+  }
+}

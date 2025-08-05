@@ -1,0 +1,137 @@
+/* GymCard.css */
+
+.card-base {
+  background-color: #ffffff00;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-base:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.gymcard-image-wrapper {
+  /* width: 100%; */
+  aspect-ratio: 50 / 9;
+  position: relative;
+}
+
+.gymcard-image {
+  width: 100% !important;
+  height: 400px !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+.gymcard-swiper {
+  width: 100%;
+  /* height: 100%; */
+}
+
+.gymcard-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.gymcard-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gymcard-address {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+  min-height: 2.4em;
+}
+
+.gymcard-price {
+  color: #2563eb;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.gymcard-button {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  margin-top: auto;
+}
+
+.gymcard-button:hover {
+  background-color: #1d4ed8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .gymcard-content {
+    padding: 0.9rem;
+  }
+
+  .gymcard-name {
+    font-size: 1.05rem;
+  }
+
+  .gymcard-address {
+    font-size: 0.875rem;
+  }
+
+  .gymcard-price {
+    font-size: 1rem;
+  }
+
+  .gymcard-button {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.9rem;
+  }
+}
+
+/* Grid Wrapper */
+.gymcard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+@media (max-width: 640px) {
+  .gymcard-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Optional section styling */
+.gymcard-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.gymcard-section h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #1f2937;
+}

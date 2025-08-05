@@ -1,0 +1,102 @@
+/* Reusing the same styles as admin/SetDateSpecificAvailability.css for consistency */
+.admin-set-date-availability-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    background-color: var(--color-apple-light-gray);
+  }
+  
+  .admin-set-date-availability-card {
+    width: 100%;
+    max-width: 600px;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .admin-set-date-availability-card h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+  
+  .admin-set-date-availability-form {
+    text-align: left;
+  }
+  
+  .admin-set-date-availability-form .form-group {
+    margin-bottom: 1.25rem;
+  }
+  
+  .admin-set-date-availability-form .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--color-gray-700);
+  }
+  
+  .admin-set-date-availability-form .input-base {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--color-gray-300);
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .admin-set-date-availability-form .input-base:focus {
+    outline: none;
+    border-color: var(--color-apple-blue);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+  }
+  
+  .admin-set-date-availability-form .set-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--color-apple-green);
+    font-size: 1.125rem;
+    margin-top: 1rem;
+  }
+  
+  .admin-set-date-availability-form .set-button:hover {
+    background-color: #28a745;
+  }
+  
+  .admin-set-date-availability-form .set-button:disabled {
+    background-color: var(--color-gray-400);
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none;
+  }
+  
+  .admin-set-date-availability-form .set-button:disabled:hover {
+    background-color: var(--color-gray-400);
+  }
+  
+  .error-message {
+    color: var(--color-apple-red);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .success-message {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .error-message-center {
+    text-align: center;
+    color: var(--color-apple-red);
+    font-size: 1.1rem;
+    margin-top: 3rem;
+  }
+  
+  .back-link {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .back-link .button-secondary {
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+  }
+  

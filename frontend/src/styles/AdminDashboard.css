@@ -1,0 +1,170 @@
+.admin-dashboard-container {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.admin-dashboard-container h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+}
+
+.gym-dashboard-swiper {
+  width: 100%;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.dashboard-gym-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  padding: 0.4rem;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 768px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none;
+  }}
+
+
+.admin-dashboard-container h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-apple-dark);
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-gray-200);
+  padding-bottom: 0.75rem;
+}
+
+.no-content-message {
+  text-align: center;
+  color: var(--color-gray-600);
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
+
+.admin-bookings-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.admin-booking-card {
+  padding: 1.5rem;
+  text-align: left;
+}
+
+.admin-booking-card h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-apple-dark);
+  margin-bottom: 0.75rem;
+}
+
+.admin-booking-card p {
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+  color: var(--color-gray-700);
+}
+
+.admin-booking-card p strong {
+  color: var(--color-apple-dark);
+}
+
+.admin-booking-card .booking-amount {
+  color: var(--color-apple-blue);
+  font-weight: 700;
+}
+
+.admin-booking-card .booking-status {
+  font-weight: 600;
+}
+
+.admin-booking-card .booking-status.verified {
+  color: var(--color-apple-green);
+}
+
+.admin-booking-card .booking-status.pending {
+  color: var(--color-apple-orange);
+}
+
+.admin-booking-card .booking-otp-display {
+  display: inline-block;
+  background-color: var(--color-apple-dark);
+  color: var(--color-apple-yellow);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+  margin-left: 0.25rem;
+}
+
+.error-message-center {
+  text-align: center;
+  color: var(--color-apple-red);
+  font-size: 1.1rem;
+  margin-top: 3rem;
+}
+
+/* New styles for All Registered Gyms section */
+.section-heading-top-margin {
+  margin-top: 3rem; /* Add some space above the new section heading */
+}
+
+.admin-gyms-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.admin-gym-card {
+  padding: 1.5rem;
+  text-align: left;
+}
+
+.admin-gym-card h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-apple-dark);
+  margin-bottom: 0.75rem;
+}
+
+.admin-gym-card p {
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+  color: var(--color-gray-700);
+}
+
+.admin-gym-card p strong {
+  color: var(--color-apple-dark);
+}
+
+.gym-approval-status {
+  font-weight: 600;
+}
+
+.gym-approval-status.approved {
+  color: var(--color-apple-green);
+}
+
+.gym-approval-status.pending {
+  color: var(--color-apple-orange);
+}

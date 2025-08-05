@@ -1,0 +1,143 @@
+.all-gym-availability-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top */
+    padding: 2rem 1rem;
+    background-color: var(--color-apple-light-gray);
+  }
+  
+  .all-gym-availability-card {
+    width: 100%;
+    max-width: 900px;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .all-gym-availability-card h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--color-apple-dark);
+  }
+  
+  .availability-section {
+    margin-bottom: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-gray-200);
+  }
+  
+  .availability-section h3 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--color-apple-dark);
+    margin-bottom: 1.25rem;
+  }
+  
+  .no-availability-message {
+    color: var(--color-gray-600);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+  
+  .recurring-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .recurring-item {
+    background-color: var(--color-gray-100);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: var(--color-gray-800);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .recurring-item strong {
+    color: var(--color-apple-blue);
+  }
+  
+  .action-link {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .action-link .button-secondary {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+  }
+  
+  .date-specific-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .date-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    text-align: left;
+  }
+  
+  .date-card h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-apple-dark);
+    margin-bottom: 0.75rem;
+    border-bottom: 1px dashed var(--color-gray-200);
+    padding-bottom: 0.5rem;
+  }
+  
+  .slots-list {
+    list-style: none;
+    padding: 0;
+    max-height: 150px; /* Limit height for scroll */
+    overflow-y: auto;
+  }
+  
+  .slots-list li {
+    background-color: var(--color-apple-light-gray);
+    color: var(--color-gray-700);
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+  }
+  
+  .slots-list li:last-child {
+    margin-bottom: 0;
+  }
+  
+  .no-slots {
+    font-size: 0.9rem;
+    color: var(--color-gray-600);
+    font-style: italic;
+  }
+  
+  .back-link {
+    margin-top: 2.5rem;
+    text-align: center;
+    border-top: 1px solid var(--color-gray-200);
+    padding-top: 1.5rem;
+  }
+  
+  .back-link .button-secondary {
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+  }
+  
+  .error-message-center {
+    text-align: center;
+    color: var(--color-apple-red);
+    font-size: 1.1rem;
+    margin-top: 3rem;
+  }
+  

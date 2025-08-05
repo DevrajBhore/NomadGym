@@ -1,0 +1,318 @@
+.bookings-list-container {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.bookings-list-container h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+}
+
+.direction-button {
+  margin-top: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #007aff;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.direction-button:hover {
+  background-color: #005fcc;
+}
+
+
+/* Gym Filter Section */
+.gym-filter-section {
+  background-color: var(--color-white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.gym-filter-section h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--color-apple-dark);
+  text-align: left;
+}
+
+.gym-filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.filter-button {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--color-gray-300);
+  border-radius: 25px;
+  background-color: var(--color-white);
+  color: var(--color-gray-700);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-button:hover {
+  border-color: var(--color-apple-blue);
+  color: var(--color-apple-blue);
+}
+
+.filter-button.active {
+  background-color: var(--color-apple-blue);
+  border-color: var(--color-apple-blue);
+  color: var(--color-white);
+}
+
+/* Booking Statistics */
+.booking-stats {
+  background-color: var(--color-white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--color-apple-light-gray);
+  border-radius: 8px;
+}
+
+.stat-card h4 {
+  font-size: 0.9rem;
+  color: var(--color-gray-600);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-apple-dark);
+}
+
+.stat-number.verified {
+  color: var(--color-apple-green);
+}
+
+.stat-number.pending {
+  color: var(--color-apple-orange);
+}
+
+.stat-number.revenue {
+  color: var(--color-apple-blue);
+}
+
+.no-content-message {
+  text-align: center;
+  color: var(--color-gray-600);
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  padding: 2rem;
+  background-color: var(--color-gray-100);
+  border-radius: 12px;
+}
+
+.bookings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.booking-item-card {
+  padding: 1.5rem;
+  text-align: left;
+  position: relative;
+}
+
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.booking-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-apple-dark);
+  margin: 0;
+}
+
+.booking-status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.booking-status-badge.verified {
+  background-color: var(--color-apple-green);
+  color: var(--color-white);
+}
+
+.booking-status-badge.pending {
+  background-color: var(--color-apple-orange);
+  color: var(--color-white);
+}
+
+.booking-details p {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--color-gray-700);
+}
+
+.booking-details p strong {
+  color: var(--color-apple-dark);
+}
+
+.gym-city {
+  color: var(--color-gray-500);
+  font-size: 0.85rem;
+}
+
+.booking-amount {
+  color: var(--color-apple-blue);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.otp-section {
+  background-color: var(--color-apple-light-gray);
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin: 0.75rem 0;
+}
+
+.booking-otp-display {
+  display: inline-block;
+  background-color: var(--color-apple-dark);
+  color: var(--color-apple-yellow);
+  font-weight: 700;
+  font-size: 1.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  margin-left: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.otp-note {
+  display: block;
+  color: var(--color-gray-600);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.booking-date {
+  font-size: 0.85rem;
+  color: var(--color-gray-500);
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-gray-200);
+}
+
+.booking-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.verify-button {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.verified-badge {
+  padding: 0.5rem 1rem;
+  background-color: var(--color-apple-green);
+  color: var(--color-white);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.back-link {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-gray-200);
+}
+
+.back-link .button-secondary {
+  padding: 0.625rem 1.25rem;
+  font-size: 1rem;
+}
+
+.error-message-center {
+  text-align: center;
+  color: var(--color-apple-red);
+  font-size: 1.1rem;
+  margin-top: 3rem;
+  padding: 2rem;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .bookings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gym-filter-buttons {
+    flex-direction: column;
+  }
+
+  .filter-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .booking-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bookings-list-container {
+    padding: 1rem 0.5rem;
+  }
+
+  .booking-item-card {
+    padding: 1rem;
+  }
+}

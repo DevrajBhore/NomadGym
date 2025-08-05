@@ -1,0 +1,219 @@
+/* styles/GymInfoCard.css */
+
+.gym-card-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.gym-card-container {
+  background: #fff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: slideFadeIn 0.3s ease;
+}
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gym-card-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.2s;
+}
+.gym-card-close:hover {
+  color: #000;
+}
+
+.gym-card-image-container {
+  position: relative;
+  padding: 1rem;
+}
+
+.gym-card-distance {
+  position: absolute;
+  bottom: 16px;
+  left: 24px;
+  background-color: #1e3a8a;
+  color: #fff;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gym-card-content {
+  padding: 1rem 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.gym-card-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.gym-card-rating .stars {
+  display: flex;
+  gap: 4px;
+}
+.gym-card-rating .star.filled svg,
+.gym-card-rating .star.half svg {
+  color: #facc15;
+}
+.gym-card-rating .star.empty svg {
+  color: #e5e7eb;
+}
+.gym-card-rating .rating-text {
+  margin-left: 8px;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+.no-rating {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.gym-card-address,
+.gym-card-price,
+.gym-card-capacity,
+.gym-card-contact {
+  font-size: 0.95rem;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gym-card-price .price-label,
+.gym-card-capacity .capacity-label {
+  font-weight: 500;
+}
+
+.gym-card-price .price-value,
+.gym-card-capacity .capacity-value {
+  color: #1e40af;
+  font-weight: 600;
+}
+
+.gym-card-amenities .amenities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.amenity-tag {
+  background-color: #f3f4f6;
+  color: #374151;
+  padding: 0.3rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+.amenity-tag.more {
+  background-color: #e0e7ff;
+  color: #3730a3;
+}
+
+.gym-card-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+.gym-card-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  justify-content: center;
+  width: 100%;
+  transition: background-color 0.2s;
+}
+.gym-card-button.primary {
+  background-color: #2563eb;
+  color: white;
+}
+.gym-card-button.primary:hover {
+  background-color: #1d4ed8;
+}
+.gym-card-button.secondary {
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
+.gym-card-button.secondary:hover {
+  background-color: #e5e7eb;
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .gym-card-container {
+    max-width: 95%;
+    padding: 0.5rem;
+  }
+
+  .gym-card-content {
+    padding: 1rem;
+  }
+
+  .gym-card-title {
+    font-size: 1.4rem;
+  }
+
+  .gym-card-button {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.8rem;
+  }
+
+  .gym-card-image-container {
+    padding: 0.5rem;
+  }
+
+  .gym-card-distance {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+  }
+}

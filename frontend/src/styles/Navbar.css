@@ -1,0 +1,211 @@
+.navbar {
+  background-color: rgba(0, 0, 0, 0.055);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  height: 64px; /* Fixed height */
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand a {
+  text-decoration: none;
+}
+
+.brand-name {
+  /* font-size: 1.75rem; */
+  font-weight: 700; 
+  letter-spacing: 1px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #ffffff;
+  transition: color 0.2s ease-in-out;
+}
+
+.brand-name:hover {
+  color: #00c2a8; /* matches your accent color */
+  cursor: pointer;
+}
+
+.logo {
+  height: 100px; 
+  width: auto;
+  display: flex;
+  align-items: center;
+  overflow: hidden; 
+  margin-left: -13px;
+}
+
+.brand img {
+  height: 140px; 
+  width: 140px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 3px rgba(255, 255, 255, 0.2));
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.logo img:hover {
+  transform: scale(1.1);
+}
+
+
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 51;
+}
+
+.hamburger-line {
+  width: 24px;
+  height: 2px;
+  background-color: rgb(255, 252, 252);
+  transition: all 0.3s ease;
+}
+
+.hamburger-menu.open .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translateY(6px);
+}
+
+.hamburger-menu.open .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.open .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translateY(-6px);
+}
+
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.navbar-links li a,
+.logout-button {
+  font-size: 1rem;
+  color: var(--color-apple-dark);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.logout-button {
+  background-color: transparent;
+  border: 1px solid var(--color-gray-300);
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-apple-dark);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  color: blue;
+  border-color: var(--color-apple-red);
+  background-color: rgb(120, 48, 255);
+}
+
+.logout-button:active {
+  transform: scale(0.96);
+}
+
+.navbar-links li a:hover,
+.logout-button:hover {
+  color: #00c2a8;
+}
+
+@media (max-width: 768px) {
+  .hamburger-menu {
+    display: flex;
+  }
+
+   .navbar-links {
+    position: absolute;
+    color: aqua;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: rgba(83, 79, 79, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transform: translateY(-200%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .navbar-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .navbar-links li {
+    margin: 0.5rem 0;
+    width: 100%;
+  }
+
+  .navbar-links li a,
+  .logout-button {
+    width: 100%;
+    padding: 0.75rem 0;
+    display: block;
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  z-index: 50;
+}
+
+.button-primary {
+  background-color: var(--color-apple-blue);
+  color: var(--color-white);
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.25s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0,122,255,0.1);
+  will-change: transform;
+}
+
+.button-primary:hover {
+  background-color: #006ae6;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,122,255,0.15);
+}
+
+.button-primary:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(0,122,255,0.12);
+}

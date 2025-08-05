@@ -1,0 +1,248 @@
+.location-search-container {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .search-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .search-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+  }
+  
+  .search-header p {
+    font-size: 1.1rem;
+    color: var(--color-gray-600);
+  }
+  
+  .search-controls-section {
+    background-color: var(--card-background);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-form {
+    margin-bottom: 1rem;
+  }
+  
+  .search-input-group {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  
+  .search-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+  
+  .search-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+  
+  .location-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  
+  .location-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+  }
+  
+  .radius-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .radius-control label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-gray-700);
+  }
+  
+  .radius-control select {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    min-width: 80px;
+  }
+  
+  .results-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .results-info {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  
+  .sort-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .sort-control label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-gray-700);
+  }
+  
+  .sort-control select {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    min-width: 100px;
+  }
+  
+  .search-results {
+    min-height: 300px;
+  }
+  
+  .gyms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .gym-result-card {
+    position: relative;
+  }
+  
+  .distance-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background-color: var(--primary-button-bg);
+    color: var(--primary-button-text);
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    z-index: 1;
+  }
+  
+  .no-results {
+    text-align: center;
+    padding: 3rem 1rem;
+    background-color: var(--card-background);
+    border-radius: 12px;
+  }
+  
+  .no-results h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+  }
+  
+  .no-results p {
+    color: var(--color-gray-600);
+    font-size: 1rem;
+  }
+  
+  .search-suggestions {
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+  
+  .search-suggestions h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+  }
+  
+  .suggestion-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .suggestion-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .search-input-group {
+      flex-direction: column;
+    }
+  
+    .search-input {
+      width: 100%;
+    }
+  
+    .search-button {
+      width: 100%;
+    }
+  
+    .location-controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .location-button {
+      width: 100%;
+    }
+  
+    .results-controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .gyms-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .suggestion-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .suggestion-button {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .location-search-container {
+      padding: 1rem 0.5rem;
+    }
+  
+    .search-controls-section {
+      padding: 1rem;
+    }
+  
+    .search-header h2 {
+      font-size: 2rem;
+    }
+  }
+  

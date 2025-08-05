@@ -1,0 +1,82 @@
+.add-gym-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    background-color: var(--color-apple-light-gray);
+  }
+  
+  .add-gym-form {
+    width: 100%;
+    max-width: 700px;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .add-gym-form h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+  
+  .add-gym-form .form-group {
+    margin-bottom: 1.25rem;
+    text-align: left;
+  }
+  
+  .add-gym-form .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--color-gray-700);
+  }
+  
+  .add-gym-form .input-base {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--color-gray-300);
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .add-gym-form .input-base:focus {
+    outline: none;
+    border-color: var(--color-apple-blue);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+  }
+  
+  .add-gym-form .textarea-resize {
+    resize: vertical;
+  }
+  
+  .add-gym-form .form-hint {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--color-gray-600);
+    font-size: 0.875rem;
+  }
+  
+  .add-gym-form .add-gym-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--color-apple-green);
+    font-size: 1.125rem;
+    margin-top: 1rem;
+  }
+  
+  .add-gym-form .add-gym-button:hover {
+    background-color: #28a745;
+  }
+  
+  .error-message {
+    color: var(--color-apple-red);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .success-message {
+    color: var(--color-apple-green);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  

@@ -111,8 +111,8 @@ const FindGymsMap = () => {
 
         // Fallback to a default location (Delhi, India)
         const defaultCoords = {
-          lat: 28.6139,
-          lng: 77.209,
+          lat: 18.9582,
+          lng: 72.8321,
         };
         setUserLocation(defaultCoords);
         fetchNearbyGyms(defaultCoords.lat, defaultCoords.lng);

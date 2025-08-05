@@ -104,6 +104,7 @@ const Home = () => {
           src={heroImages[currentIndex]}
           alt="Modern gym with equipment"
           className="hero-background-image"
+          loading="lazy"
         />
         <div className="hero-overlay"></div>
       </header>

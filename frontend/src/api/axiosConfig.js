@@ -2,7 +2,7 @@
 import axios from "axios"
 
 const API = axios.create({
-  baseURL: import.meta.env.VITE_URL_API,
+  baseURL: import.meta.env.VITE_URL_API || "https://nomadgym.onrender.com/api/v1/",
   withCredentials: true,
 })
 

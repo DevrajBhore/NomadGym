@@ -87,22 +87,22 @@ const userLogin = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // ✅ Include role and _id in the JWT payload
+    // Include role and _id in the JWT payload
     const payload = {
       userId: user._id,
-      role: user.role,         // 🔥 this is what verifyGymOwner checks
+      role: user.role,         // this is what verifyGymOwner checks
       email: user.email,
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-    // ✅ Send token in secure HTTP-only cookie
+    // Send token in secure HTTP-only cookie
     res
       .cookie("token", token, {
         httpOnly: true,
         secure: true, // set to true in production with HTTPS
         sameSite: "None",
-        maxAge: 1 * 60 * 60 * 1000, // 1 hour
+        maxAge: 7 * 24 * 60 * 60 * 1000, 
       })
       .status(200)
       .json({

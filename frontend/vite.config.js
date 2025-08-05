@@ -3,15 +3,10 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  server: {
-    port: 5173,
-    hmr: {
-      overlay: false,
-    },
-  },
+  base: "/", // 👈 necessary if deploying to root domain like nomadgym.in
   build: {
     outDir: "dist",
-    sourcemap: true,
+    sourcemap: false, // 👈 smaller and more secure build
   },
 });
 

@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 2000 // Changed to match your frontend config
 
 app.use(
   cors({
-    origin: [process.env.CLIENT_ORIGIN, "http://localhost:5173"],
+    origin: [process.env.CLIENT_ORIGIN, "https://nomadgym.xyz"],
     credentials: true,
   }),
 )

@@ -79,7 +79,12 @@ const userLogin = async (req, res) => {
     }
 
     if (!user.isVerified) {
-      return res.status(403).json({ message: "Email not verified. Please verify your email before logging in." });
+      return res
+        .status(403)
+        .json({
+          message:
+            "Email not verified. Please verify your email before logging in.",
+        });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -90,11 +95,13 @@ const userLogin = async (req, res) => {
     // Include role and _id in the JWT payload
     const payload = {
       userId: user._id,
-      role: user.role,         // this is what verifyGymOwner checks
+      role: user.role, // this is what verifyGymOwner checks
       email: user.email,
     };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
 
     // Send token in secure HTTP-only cookie
     res
@@ -102,7 +109,7 @@ const userLogin = async (req, res) => {
         httpOnly: true,
         secure: true, // set to true in production with HTTPS
         sameSite: "None",
-        maxAge: 7 * 24 * 60 * 60 * 1000, 
+        maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .status(200)
       .json({
@@ -249,5 +256,5 @@ export {
   userPasswordForgot,
   userPasswordReset,
   userVerifyEmail,
-  userLogout
+  userLogout,
 };

@@ -101,7 +101,7 @@ export const verifyBookingPayment = async (req, res) => {
       return res.status(404).json({ error: "Booking not found" });
     }
 
-    // ✅ Bypass Razorpay signature check in test/dev
+    // Bypass Razorpay signature check in test/dev
     const isLocalDev = process.env.NODE_ENV === "development" || process.env.TEST_MODE === "true";
 
     if (!isLocalDev) {
@@ -114,7 +114,7 @@ export const verifyBookingPayment = async (req, res) => {
         return res.status(400).json({ error: "Invalid Razorpay signature" });
       }
     } else {
-      console.log("🧪 Running in TEST MODE. Skipping Razorpay signature verification.");
+      console.log("Running in TEST MODE. Skipping Razorpay signature verification.");
     }
 
     const otp = Math.floor(100000 + Math.random() * 900000);

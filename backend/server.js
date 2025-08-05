@@ -16,8 +16,11 @@ dotenv.config();
 const app = express(); // ✅ Declare app first
 const PORT = process.env.PORT || 2000;
 
-// ✅ CORS Setup
-const allowedOrigins = ["http://localhost:5173", "https://nomadgym.xyz"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://nomadgym.xyz", // ✅ your live frontend
+];
+
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -27,7 +30,7 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
-    credentials: true,
+    credentials: true, // ✅ for cookies to be sent
   })
 );
 

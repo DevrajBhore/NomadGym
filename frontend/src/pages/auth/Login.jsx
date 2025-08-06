@@ -31,7 +31,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    const api = import.meta.env.VITE_API_URL;
+    const api = import.meta.env.VITE_URL_API;
     window.open(`${api}/v1/auth/google`, "_self");
   };
 

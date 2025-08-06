@@ -68,7 +68,7 @@ const MakePayment = () => {
     }
 
     const options = {
-      key: "rzp_test_XKtRf4qIGQPXMI",
+      key: import.meta.env.RAZORPAY_KEY_ID,
       amount: razorpayOrder.amount,
       currency: razorpayOrder.currency,
       name: "NomadGym",

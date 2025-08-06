@@ -190,48 +190,44 @@ const Explore = () => {
 
       {/* Matching Gyms Grid */}
       {filteredGyms.length > 0 && (
-  <section className="matching-gyms-section">
-    <div className="container">
-      <h2 className="section-title">Matching Gyms</h2>
-      <div className="gyms-list">
-        {filteredGyms.map((gym) => (
-          <Link
-            to={`/gym/${gym._id}`}
-            key={gym._id}
-            className="gym-card"
-          >
-            <div className="gym-card-image-wrapper">
-              <img
-                src={
-                  Array.isArray(gym.imageUrls) && gym.imageUrls.length > 0
-                    ? gym.imageUrls[0]
-                    : "/placeholder.svg"
-                }
-                alt={gym.name}
-                className="gym-card-image"
-              />
+        <section className="matching-gyms-section">
+          <div className="container">
+            <h2 className="section-title">Matching Gyms</h2>
+            <div className="gyms-list">
+              {filteredGyms.map((gym) => (
+                <Link to={`/gym/${gym._id}`} key={gym._id} className="gym-card">
+                  <div className="gym-card-image-wrapper">
+                    <img
+                      src={
+                        Array.isArray(gym.imageUrls) && gym.imageUrls.length > 0
+                          ? gym.imageUrls[0]
+                          : "/placeholder.svg"
+                      }
+                      alt={gym.name}
+                      className="gym-card-image"
+                    />
+                  </div>
+                  <div className="gym-card-content">
+                    <h3 className="gym-name">{gym.name}</h3>
+                    <p className="gym-description">
+                      {gym.description?.slice(0, 100) ||
+                        "No description provided."}
+                    </p>
+                    <p className="gym-city">
+                      <MapPin size={16} /> {gym.city}
+                    </p>
+                    {gym.averageRating && (
+                      <p className="gym-rating">
+                        <Star size={16} /> {gym.averageRating.toFixed(1)} / 5
+                      </p>
+                    )}
+                  </div>
+                </Link>
+              ))}
             </div>
-            <div className="gym-card-content">
-              <h3 className="gym-name">{gym.name}</h3>
-              <p className="gym-description">
-                {gym.description?.slice(0, 100) || "No description provided."}
-              </p>
-              <p className="gym-city">
-                <MapPin size={16} /> {gym.city}
-              </p>
-              {gym.averageRating && (
-                <p className="gym-rating">
-                  <Star size={16} /> {gym.averageRating.toFixed(1)} / 5
-                </p>
-              )}
-            </div>
-          </Link>
-        ))}
-      </div>
-    </div>
-  </section>
-)}
-
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <div className="cities-cta container">

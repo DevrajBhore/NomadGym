@@ -2,15 +2,8 @@
 import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect} from "react";
-import {
-  Zap,
-  Globe,
-  Smartphone,
-  MapPin,
-  HandCoins,
-  ShieldCheck,
-} from "lucide-react";
 import FeaturesSection from "../../components/FeaturesSection.jsx"
+import Contact from "../../components/Contact.jsx"
 import "../../styles/Home.css";
 
 const heroImages = [
@@ -112,16 +105,7 @@ const Home = () => {
 
       <FeaturesSection />
 
-      <section id="contact" className="contact section">
-        <div className="container">
-          <div className="contact-content">
-            <h2 className="contact-title">Contact Us</h2>
-            <a href="tel:+91 9372981202" className="contact-phone">
-              +91 9372981202
-            </a>
-          </div>
-        </div>
-      </section>
+      <Contact />
 
       <section className="cta-sectionn">
         <div className="cta-contentt">

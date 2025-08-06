@@ -70,7 +70,7 @@ const Confirmation = () => {
                   <strong>Amount Paid:</strong> <span className="amount-paid">₹{bookingDetails.amount}</span>
                 </p>
                 <p>
-                  <strong>Your OTP:</strong> <span className="otp-code">{bookingDetails.otp}</span>
+                  <strong>Your OTP:</strong> <span className="otp-code">{location.state?.otp || "N/A"}</span>
                 </p>
                 <p className="otp-note">Show this OTP to the gym owner upon arrival.</p>
               </div>

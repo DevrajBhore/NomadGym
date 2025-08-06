@@ -181,7 +181,7 @@
   background-attachment: fixed;
   text-align: center;
   padding: 100px 0;
-  
+  image-rendering: auto;
   align-items: center;
 
 }

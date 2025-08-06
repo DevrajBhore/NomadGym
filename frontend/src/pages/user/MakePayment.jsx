@@ -26,10 +26,14 @@ const MakePayment = () => {
       const fetchBookingDetails = async () => {
         try {
           const response = await API.get("/bookings/my-bookings");
-          const foundBooking = response.data.bookings.find((b) => b._id === bookingId);
+          const foundBooking = response.data.bookings.find(
+            (b) => b._id === bookingId
+          );
           if (foundBooking) {
             setBookingDetails(foundBooking);
-            setError("Payment session expired. Please re-initiate booking from gym details.");
+            setError(
+              "Payment session expired. Please re-initiate booking from gym details."
+            );
           } else {
             setError("Booking not found.");
           }
@@ -64,12 +68,14 @@ const MakePayment = () => {
     }
 
     if (!razorpayOrder || !bookingDetails) {
-      setError("Missing order or booking info. Please restart the booking process.");
+      setError(
+        "Missing order or booking info. Please restart the booking process."
+      );
       return;
     }
 
     const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID, // ✅ use VITE_ prefix
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID, //
       amount: razorpayOrder.amount,
       currency: razorpayOrder.currency,
       name: "NomadGym",
@@ -81,11 +87,11 @@ const MakePayment = () => {
             razorpay_payment_id: response.razorpay_payment_id,
             razorpay_order_id: response.razorpay_order_id,
             razorpay_signature: response.razorpay_signature,
-            bookingId,
+            bookingId: bookingDetails._id, 
           });
 
           if (verify.status === 200) {
-            navigate(`/confirmation/${bookingId}`, {
+            navigate(`/confirmation/${bookingDetails._id}`, {
               state: { success: true },
             });
           } else {
@@ -96,6 +102,7 @@ const MakePayment = () => {
           setError(err.response?.data?.error || "Payment failed. Try again.");
         }
       },
+
       prefill: {
         name: "NomadGym User",
         email: "user@example.com",
@@ -142,7 +149,9 @@ const MakePayment = () => {
         <button onClick={displayRazorpay} className="pay-button button-primary">
           Pay Now with Razorpay
         </button>
-        <p className="payment-note">You’ll be redirected to Razorpay’s gateway.</p>
+        <p className="payment-note">
+          You’ll be redirected to Razorpay’s gateway.
+        </p>
       </div>
     </div>
   );

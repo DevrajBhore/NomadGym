@@ -42,6 +42,10 @@ const bookingSchema = new mongoose.Schema(
     otpExpiry: {
       type: Date,
     },
+    isPaid: {
+  type: Boolean,
+  default: false,
+},
   },
   { timestamps: true },
 )

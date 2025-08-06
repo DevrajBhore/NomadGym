@@ -251,7 +251,7 @@ const googleCallbackController = (req, res) => {
   const user = req.user;
 
   if (!user) {
-    return res.redirect(`${process.env.CLIENT_URL}/login?error=unauthorized`);
+    return res.redirect(`${process.env.CLIENT_URL}/`);
   }
 
   const payload = {

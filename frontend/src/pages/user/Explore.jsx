@@ -241,7 +241,7 @@ const Explore = () => {
             We're expanding rapidly! Let us know where you'd like to see
             NomadGym next.
           </p>
-          <Link to="/contact" className="btn cta-btn">
+          <Link to="/contactus" className="btn cta-btn">
             Request Your City
           </Link>
         </div>

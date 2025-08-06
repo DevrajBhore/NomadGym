@@ -112,7 +112,7 @@ const SetRecurringAvailability = () => {
   return (
     <div className="set-availability-container">
       <div className="set-availability-card card-base">
-        <h2>Set Recurring Availability for {gymName}</h2>
+        <h2>Set Days Availability for {gymName}</h2>
         {error && <p className="error-message">{error}</p>}
         {successMessage && <p className="success-message">{successMessage}</p>}
 

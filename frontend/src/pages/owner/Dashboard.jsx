@@ -273,12 +273,12 @@ const OwnerDashboard = () => {
                 </div> */}
 
                 <div className="gym-actions">
-                  <Link
+                  {/* <Link
                     to={`/owner/gym/${gym._id}/set-recurring-availability`}
                     className="action-button button-secondary"
                   >
                     Set Recurring Availability
-                  </Link>
+                  </Link> */}
                   <Link
                     to={`/owner/gym/${gym._id}/all-availability`}
                     className="action-button button-secondary"

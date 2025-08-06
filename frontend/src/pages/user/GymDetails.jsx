@@ -202,11 +202,11 @@ const GymDetails = () => {
         )}
       </div>
 
-      <div className="gym-details-section">
+      {/* <div className="gym-details-section">
         <h2>Availability Overview</h2>
         <div className="availability-overview-grid">
           <div className="overview-card">
-            <h3>Recurring Schedule</h3>
+            <h3>Days Schedule</h3>
             {allAvailability.recurring.length > 0 ? (
               <ul className="overview-list">
                 {allAvailability.recurring.map((rec) => (
@@ -241,7 +241,7 @@ const GymDetails = () => {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="gym-details-section">
         <h2>Book Your Slot</h2>

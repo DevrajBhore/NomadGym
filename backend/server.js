@@ -1,8 +1,9 @@
 // server.js
+import dotenv from "dotenv"
+dotenv.config()
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
-import dotenv from "dotenv"
 import session from "express-session";
 import passport from "passport";
 import "./utils/passport.js";
@@ -14,7 +15,7 @@ import availabilityRoutes from "./routes/availabilityRoutes.js"
 import recurringRoutes from "./routes/recurringRoutes.js"
 import "../backend/utils/cleanupOldAvailability.js"
 
-dotenv.config()
+
 
 const app = express()
 const PORT = process.env.PORT || 2000 // Changed to match your frontend config

@@ -1,15 +1,17 @@
+// owner/SetDateSpecificAvailability.jsx
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import API from "../../api/axiosConfig"
 import Loader from "../../components/Loader"
 import "../../styles/SetDateSpecificAvailability.css"
+import DatePicker from "react-multi-date-picker"
 import moment from "moment"
 
 const SetDateSpecificAvailability = () => {
   const navigate = useNavigate()
   const [gyms, setGyms] = useState([])
   const [selectedGymId, setSelectedGymId] = useState("")
-  const [date, setDate] = useState(moment().format("YYYY-MM-DD"))
+  const [selectedDates, setSelectedDates] = useState([])
   const [startTime, setStartTime] = useState("09:00 AM")
   const [endTime, setEndTime] = useState("05:00 PM")
   const [loading, setLoading] = useState(true)
@@ -19,11 +21,11 @@ const SetDateSpecificAvailability = () => {
   useEffect(() => {
     const fetchOwnerGyms = async () => {
       try {
-        const response = await API.get("/gyms/my-gyms") // Fetch only owner's gyms
+        const response = await API.get("/gyms/my-gyms")
         if (response.status === 200) {
           setGyms(response.data.gyms)
           if (response.data.gyms.length > 0) {
-            setSelectedGymId(response.data.gyms[0]._id) // Select first gym by default
+            setSelectedGymId(response.data.gyms[0]._id)
           }
         }
       } catch (err) {
@@ -42,57 +44,43 @@ const SetDateSpecificAvailability = () => {
     setError("")
     setSuccessMessage("")
 
-    if (!selectedGymId || !date || !startTime || !endTime) {
-      setError("Please select a gym, date, start time, and end time.")
-      return
-    }
-
-    const selectedDateMoment = moment(date, "YYYY-MM-DD", true)
-    const today = moment().startOf("day")
-
-    if (!selectedDateMoment.isValid()) {
-      setError("Invalid date format.")
-      return
-    }
-
-    if (selectedDateMoment.isBefore(today)) {
-      setError("Cannot set availability for past dates.")
+    if (!selectedGymId || selectedDates.length === 0 || !startTime || !endTime) {
+      setError("Please select a gym, at least one date, and time slots.")
       return
     }
 
     try {
-      const response = await API.post("/availability/set", {
-        // Use the existing owner endpoint
-        gymId: selectedGymId,
-        date,
-        startTime,
-        endTime,
-      })
+      const formattedDates = selectedDates.map((dateObj) =>
+        moment(dateObj).format("DD-MM-YYYY")
+      )
 
-      if (response.status === 200) {
-        setSuccessMessage(
-          `Availability for ${moment(date).format("MMMM D, YYYY")} at ${gyms.find((g) => g._id === selectedGymId)?.name} updated successfully!`,
+      await Promise.all(
+        formattedDates.map((date) =>
+          API.post("/availability/set", {
+            gymId: selectedGymId,
+            date,
+            startTime,
+            endTime,
+          })
         )
-        // Optionally reset form or keep values
-      }
+      )
+
+      setSuccessMessage(
+        `Availability set for ${formattedDates.length} date(s) at ${
+          gyms.find((g) => g._id === selectedGymId)?.name
+        }!`
+      )
     } catch (err) {
-      console.error("Set date-specific availability error:", err.response?.data || err.message)
-      setError(err.response?.data?.message || "Failed to set availability. Please try again.")
+      console.error("Set availability error:", err.response?.data || err.message)
+      setError(err.response?.data?.message || "Failed to set availability.")
     }
   }
 
-  if (loading) {
-    return <Loader />
-  }
-
-  if (error && gyms.length === 0) {
-    return <div className="error-message-center">{error}</div>
-  }
+  if (loading) return <Loader />
+  if (error && gyms.length === 0) return <div className="error-message-center">{error}</div>
 
   return (
     <div className="admin-set-date-availability-container">
-      {" "}
-      {/* Reusing admin CSS class names for consistency */}
       <div className="admin-set-date-availability-card card-base">
         <h2>Set Date-Specific Availability (Owner)</h2>
         {error && <p className="error-message">{error}</p>}
@@ -116,20 +104,21 @@ const SetDateSpecificAvailability = () => {
                 ))}
               </select>
             ) : (
-              <p className="no-content-message">No gyms available to set availability for. Please add a gym first.</p>
+              <p className="no-content-message">
+                No gyms available to set availability for. Please add a gym first.
+              </p>
             )}
           </div>
 
           <div className="form-group">
-            <label htmlFor="date">Date:</label>
-            <input
-              type="date"
-              id="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              min={moment().format("YYYY-MM-DD")}
-              required
-              className="input-base"
+            <label>Select Multiple Dates:</label>
+            <DatePicker
+              multiple
+              value={selectedDates}
+              onChange={setSelectedDates}
+              format="DD-MM-YYYY"
+              minDate={new Date()}
+              // className="input-base"
             />
           </div>
 
@@ -163,6 +152,7 @@ const SetDateSpecificAvailability = () => {
             Set Availability
           </button>
         </form>
+
         <div className="back-link">
           <button onClick={() => navigate("/owner/dashboard")} className="button-secondary">
             ← Back to Dashboard
@@ -174,3 +164,4 @@ const SetDateSpecificAvailability = () => {
 }
 
 export default SetDateSpecificAvailability
+  

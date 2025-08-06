@@ -247,11 +247,12 @@ const userLogout = async (req, res) => {
   }
 };
 
+
 const googleCallbackController = (req, res) => {
   const user = req.user;
 
   if (!user) {
-    return res.redirect(`${process.env.CLIENT_URL}/`);
+    return res.redirect(`${process.env.CLIENT_URL}/login?error=unauthorized`);
   }
 
   const payload = {
@@ -271,7 +272,7 @@ const googleCallbackController = (req, res) => {
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
-  res.redirect(`${process.env.CLIENT_URL}/home`);
+  res.redirect(`${process.env.CLIENT_URL}/`);
 };
 
 export {

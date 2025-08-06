@@ -124,7 +124,7 @@ export const verifyBookingPayment = async (req, res) => {
 
     // Transfer money to gym (after platform cut)
     if (booking.gym.razorpayAccountId) {
-      const platformFee = Math.round(booking.amount * 0.3)
+      const platformFee = Math.round(booking.amount * 0.2)
       const gymShare = booking.amount - platformFee
 
       try {

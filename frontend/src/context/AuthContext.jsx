@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await API.post("/v1/auth/login", { email, password } , {withCredentials: "true"})
+      const response = await API.post("/v1/auth/login", { email, password } , {withCredentials: true })
       if (response.status === 200) {
         // Assuming the backend returns user data upon successful login
         // For simplicity, we'll just set a placeholder user or refetch

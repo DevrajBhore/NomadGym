@@ -32,7 +32,7 @@ const Login = () => {
 
   const handleGoogleLogin = () => {
     const api = import.meta.env.VITE_API_URL;
-    window.open(`${api}/api/v1/auth/google`, "_self");
+    window.open(`${api}/v1/auth/google`, "_self");
   };
 
   return (

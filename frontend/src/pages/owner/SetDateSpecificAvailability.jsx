@@ -51,7 +51,7 @@ const SetDateSpecificAvailability = () => {
 
     try {
       const formattedDates = selectedDates.map((dateObj) =>
-        moment(dateObj).format("DD-MM-YYYY")
+        moment(dateObj).format("YYYY-MM-DD")
       )
 
       await Promise.all(
@@ -116,7 +116,7 @@ const SetDateSpecificAvailability = () => {
               multiple
               value={selectedDates}
               onChange={setSelectedDates}
-              format="DD-MM-YYYY"
+              format="YYYY-MM-DD"
               minDate={new Date()}
               // className="input-base"
             />

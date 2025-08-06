@@ -11,7 +11,7 @@ const SetDateSpecificAvailability = () => {
   const navigate = useNavigate()
   const [gyms, setGyms] = useState([])
   const [selectedGymId, setSelectedGymId] = useState("")
-  const [selectedDates, setSelectedDates] = useState([])
+  const [selectedDates, setSelectedDates] = useState([]) // Keep as DateObject[]
   const [startTime, setStartTime] = useState("09:00 AM")
   const [endTime, setEndTime] = useState("05:00 PM")
   const [loading, setLoading] = useState(true)
@@ -51,7 +51,7 @@ const SetDateSpecificAvailability = () => {
 
     try {
       const formattedDates = selectedDates.map((dateObj) =>
-        moment(dateObj).format("YYYY-MM-DD")
+        moment(dateObj.toDate()).format("YYYY-MM-DD")
       )
 
       await Promise.all(
@@ -116,9 +116,8 @@ const SetDateSpecificAvailability = () => {
               multiple
               value={selectedDates}
               onChange={setSelectedDates}
-              format="YYYY-MM-DD"
               minDate={new Date()}
-              // className="input-base"
+              //Removed `format="YYYY-MM-DD"` — this causes the visual bug
             />
           </div>
 
@@ -164,4 +163,3 @@ const SetDateSpecificAvailability = () => {
 }
 
 export default SetDateSpecificAvailability
-  

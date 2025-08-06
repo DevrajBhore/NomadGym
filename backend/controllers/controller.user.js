@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import sendEmail from "../utils/sendEmail.js";
+
 dotenv.config();
 
 const userRegistration = async (req, res) => {
@@ -79,12 +80,10 @@ const userLogin = async (req, res) => {
     }
 
     if (!user.isVerified) {
-      return res
-        .status(403)
-        .json({
-          message:
-            "Email not verified. Please verify your email before logging in.",
-        });
+      return res.status(403).json({
+        message:
+          "Email not verified. Please verify your email before logging in.",
+      });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -121,13 +120,11 @@ const userLogin = async (req, res) => {
           role: user.role,
         },
       });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Something went wrong" });
   }
 };
-
 
 const userPasswordForgot = async (req, res) => {
   try {
@@ -250,6 +247,33 @@ const userLogout = async (req, res) => {
   }
 };
 
+const googleCallbackController = (req, res) => {
+  const user = req.user;
+
+  if (!user) {
+    return res.redirect(`${process.env.CLIENT_URL}/login?error=unauthorized`);
+  }
+
+  const payload = {
+    userId: user._id,
+    role: user.role,
+    email: user.email,
+  };
+
+  const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
+
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
+
+  res.redirect(`${process.env.CLIENT_URL}/home`);
+};
+
 export {
   userRegistration,
   userLogin,
@@ -257,4 +281,5 @@ export {
   userPasswordReset,
   userVerifyEmail,
   userLogout,
+  googleCallbackController,
 };

@@ -7,11 +7,25 @@ import {
   userPasswordReset,
   userVerifyEmail,
   userLogout,
+  googleCallbackController,
 } from "../controllers/controller.user.js";
+import passport from "passport";
 import { verifyToken } from "../middleware/authMiddleware.js";
 
 const authRouter = express.Router();
 
+// Step 1: Redirect user to Google
+authRouter.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+
+// Step 2: Google calls this route after login
+authRouter.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: `${process.env.CLIENT_URL}/login`,
+    session: false,
+  }),
+  googleCallbackController
+);
 authRouter.post("/register", userRegistration);
 authRouter.post("/login", userLogin);
 authRouter.get("/check-status", verifyToken, (req, res) => {

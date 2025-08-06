@@ -3,6 +3,9 @@ import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import dotenv from "dotenv"
+import session from "express-session";
+import passport from "passport";
+import "./utils/passport.js";
 import database from "./config/database.js"
 import authRouter from "./routes/authRoutes.js"
 import gymRoutes from "./routes/gymRoutes.js"
@@ -28,6 +31,20 @@ app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 
 // Routes
+app.use(
+  session({
+    secret: process.env.JWT_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: true,
+      sameSite: "none",
+      maxAge: 7 * 24 * 60 * 60 * 1000, 
+    },
+  })
+)
+app.use(passport.initialize());
+app.use(passport.session());
 app.use("/api/v1/auth", authRouter)
 app.use("/api/gyms", gymRoutes)
 app.use("/api/bookings", bookingRoutes)

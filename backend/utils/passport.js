@@ -1,20 +1,22 @@
 // utils/passport.js
+import dotenv from "dotenv";
+dotenv.config();
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import User from "../models/Users.js";
-import dotenv from "dotenv";
-dotenv.config();
 
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL:"https://api.nomadgym.xyz/api/v1/auth/google/callback",
+      callbackURL: "https://api.nomadgym.xyz/api/v1/auth/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const existingUser = await User.findOne({ email: profile.emails[0].value });
+        const existingUser = await User.findOne({
+          email: profile.emails[0].value,
+        });
 
         if (existingUser) return done(null, existingUser);
 
@@ -22,7 +24,7 @@ passport.use(
           name: profile.displayName,
           email: profile.emails[0].value,
           isVerified: true,
-          password: "", // blank to mark social login
+          googleId: profile.id, // use this to bypass password requirement
         });
 
         done(null, newUser);

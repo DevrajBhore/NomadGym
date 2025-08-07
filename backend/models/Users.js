@@ -16,6 +16,18 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    password: {
+      type: String,
+      required: function () {
+        // only required if not logging in with Google
+        return !this.googleId;
+      },
+    },
+    googleId: {
+      type: String,
+      default: null,
+    },
+
     role: {
       type: String,
       enum: ["user", "gym_owner", "admin"],
@@ -37,5 +49,3 @@ const userSchema = new mongoose.Schema(
 
 const User = mongoose.model("User", userSchema);
 export default User;
-
-

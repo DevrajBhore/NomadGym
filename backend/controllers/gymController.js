@@ -229,16 +229,31 @@ export const addGym = async (req, res) => {
       ownerEmail,
     } = req.body;
 
-    // Find owner by email
-    const owner = await User.findOne({ email: ownerEmail, role: "gym_owner" });
+    // 🔍 Find the user (regardless of current role)
+    const owner = await User.findOne({ email: ownerEmail });
+
     if (!owner) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
-        message: "Owner not found or not a gym owner",
+        message: "User with this email does not exist",
       });
     }
 
-    // Validate required fields
+    // ✅ Check if verified
+    if (!owner.isVerified) {
+      return res.status(403).json({
+        success: false,
+        message: "User is not verified. Cannot assign gym ownership.",
+      });
+    }
+
+    // 🔁 Promote to gym_owner if not already
+    if (owner.role !== "gym_owner") {
+      owner.role = "gym_owner";
+      await owner.save();
+    }
+
+    // ✅ Validate required fields
     if (
       !name ||
       !description ||
@@ -259,9 +274,10 @@ export const addGym = async (req, res) => {
       });
     }
 
-    // Grab uploaded Cloudinary image URLs
+    // 📷 Get image URLs (if using Cloudinary/multer)
     const imageUrls = req.files?.map((file) => file.path) || [];
 
+    // 🏋️ Create and save gym
     const newGym = new Gym({
       name,
       description,
@@ -291,7 +307,7 @@ export const addGym = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: "Gym added successfully",
+      message: "Gym added successfully and user promoted to gym_owner",
       gym: savedGym,
     });
   } catch (error) {
@@ -303,6 +319,7 @@ export const addGym = async (req, res) => {
     });
   }
 };
+
 
 // Get all bookings for a gym (Owner only)
 export const getBookingsForGym = async (req, res) => {

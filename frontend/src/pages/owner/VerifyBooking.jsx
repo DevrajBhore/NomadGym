@@ -28,7 +28,7 @@ const VerifyBooking = () => {
     setLoading(true)
 
     if (!otp) {
-      setError("Please enter both Booking ID and OTP.")
+      setError("Please enter OTP.")
       setLoading(false)
       return
     }

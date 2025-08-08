@@ -12,7 +12,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation as SwiperNavigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import "../../styles/BookGym.css";
 
 const GymDetails = () => {
   const { id } = useParams();

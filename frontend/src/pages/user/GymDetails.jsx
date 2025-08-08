@@ -12,6 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation as SwiperNavigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import "../../styles/BookGym.css";
 
 const GymDetails = () => {
   const { id } = useParams();
@@ -172,12 +173,12 @@ const GymDetails = () => {
       </div>
 
       <div className="gym-details-section">
-        <h2>Book Your Slot</h2>
+        <h2 className="book-button button-primary">Book Your Slot</h2>
         <div className="availability-form">
           <label htmlFor="bookingDate">Select Date:</label>
           <DatePicker
             selected={selectedDate}
-            onChange={(date) => setSelectedDate(date)} // ✅ Keep Date object
+            onChange={(date) => setSelectedDate(date)} 
             minDate={new Date()}
             placeholderText="Select a date"
             className="input-base"

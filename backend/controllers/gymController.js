@@ -165,7 +165,7 @@ export const getNearbyGyms = async (req, res) => {
 // Get all gyms (Public)
 export const getAllGyms = async (req, res) => {
   try {
-    const gyms = await Gym.find({  isActive: true })
+    const gyms = await Gym.find({ isActive: true })
       .populate("ownerId", "name email")
       .sort({ createdAt: -1 });
 
@@ -218,18 +218,41 @@ export const addGym = async (req, res, next) => {
     console.log("BODY:", req.body);
     console.log("FILES:", req.files);
     const {
-      name, description, address, city, state, pincode,
-      contactNumber, email, pricePerHour, capacity,
-      amenities, latitude, longitude, ownerEmail
+      name,
+      description,
+      address,
+      city,
+      state,
+      pincode,
+      contactNumber,
+      email,
+      pricePerHour,
+      capacity,
+      amenities,
+      latitude,
+      longitude,
+      ownerEmail,
     } = req.body;
 
     // auth guard if self-serve (optional):
     // if (ownerEmail !== req.user?.email) return res.status(403).json({ success:false, message:"You can only add a gym for your own account" });
 
-    const required = { name, description, address, city, state, pincode, contactNumber, email, ownerEmail };
+    const required = {
+      name,
+      description,
+      address,
+      city,
+      state,
+      pincode,
+      contactNumber,
+      email,
+      ownerEmail,
+    };
     for (const [k, v] of Object.entries(required)) {
       if (v == null || String(v).trim() === "") {
-        return res.status(400).json({ success: false, message: `Missing field: ${k}` });
+        return res
+          .status(400)
+          .json({ success: false, message: `Missing field: ${k}` });
       }
     }
 
@@ -238,15 +261,34 @@ export const addGym = async (req, res, next) => {
     const lat = Number(latitude);
     const lng = Number(longitude);
     if (![price, cap, lat, lng].every(Number.isFinite)) {
-      return res.status(400).json({ success: false, message: "Invalid number in pricePerHour/capacity/latitude/longitude" });
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Invalid number in pricePerHour/capacity/latitude/longitude",
+        });
     }
     if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
-      return res.status(400).json({ success: false, message: "Coordinates out of range" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Coordinates out of range" });
     }
 
     const owner = await User.findOne({ email: ownerEmail });
-    if (!owner) return res.status(404).json({ success: false, message: "User with this email does not exist" });
-    if (!owner.isVerified) return res.status(403).json({ success: false, message: "User is not verified. Cannot assign gym ownership." });
+    if (!owner)
+      return res
+        .status(404)
+        .json({
+          success: false,
+          message: "User with this email does not exist",
+        });
+    if (!owner.isVerified)
+      return res
+        .status(403)
+        .json({
+          success: false,
+          message: "User is not verified. Cannot assign gym ownership.",
+        });
 
     if (owner.role !== "gym_owner") {
       owner.role = "gym_owner";
@@ -255,42 +297,58 @@ export const addGym = async (req, res, next) => {
 
     // images
     const imageUrls = Array.isArray(req.files)
-      ? req.files.map(f => f.path || f.location || f.secure_url).filter(Boolean)
+      ? req.files
+          .map((f) => f.path || f.location || f.secure_url)
+          .filter(Boolean)
       : [];
 
     const newGym = new Gym({
-      name, description, address, city, state, pincode,
-      contactNumber, email,
+      name,
+      description,
+      address,
+      city,
+      state,
+      pincode,
+      contactNumber,
+      email,
       pricePerHour: price,
       capacity: cap,
-      amenities: Array.isArray(amenities) ? amenities : (amenities ? String(amenities).split(",").map(s=>s.trim()) : []),
+      amenities: Array.isArray(amenities)
+        ? amenities
+        : amenities
+        ? String(amenities)
+            .split(",")
+            .map((s) => s.trim())
+        : [],
       imageUrls,
-      latitude: lat,
-      longitude: lng,
+      latitude: lat.toString(),
+      longitude: lng.toString(),
       ownerId: owner._id,
-      location: { type: "Point", coordinates: [lng, lat] }
+      location: { type: "Point", coordinates: [lng, lat] },
     });
 
     let savedGym;
     try {
       savedGym = await newGym.save();
     } catch (e) {
-      if (e.code === 11000) return res.status(409).json({ success: false, message: "Duplicate gym", key: e.keyValue });
-      if (e.name === "ValidationError") return res.status(400).json({ success: false, message: e.message });
+      if (e.code === 11000)
+        return res
+          .status(409)
+          .json({ success: false, message: "Duplicate gym", key: e.keyValue });
+      if (e.name === "ValidationError")
+        return res.status(400).json({ success: false, message: e.message });
       throw e;
     }
 
     return res.status(201).json({
       success: true,
       message: "Gym added successfully and user promoted to gym_owner",
-      gym: savedGym
+      gym: savedGym,
     });
   } catch (error) {
     next(error); // let the global handler format it
   }
 };
-
-
 
 // Get all bookings for a gym (Owner only)
 export const getBookingsForGym = async (req, res) => {
@@ -416,7 +474,7 @@ export const updateGymPrice = async (req, res) => {
 // Get unique cities with approved gyms (Public)
 export const getUniqueCities = async (req, res) => {
   try {
-    const cities = await Gym.distinct("city", { });
+    const cities = await Gym.distinct("city", {});
     res.json({ cities: cities });
   } catch (err) {
     console.error(err.message);
@@ -427,10 +485,7 @@ export const getUniqueCities = async (req, res) => {
 // Get unique amenities for filter options
 export const getAmenities = async (req, res) => {
   try {
-    const gyms = await Gym.find(
-      { isActive: true },
-      { amenities: 1 }
-    );
+    const gyms = await Gym.find({ isActive: true }, { amenities: 1 });
 
     const uniqueAmenities = gyms
       .flatMap((gym) => gym.amenities)
@@ -515,8 +570,8 @@ export const getGymDetails = async (req, res) => {
   try {
     const { gymId } = req.params;
 
-     if (!mongoose.Types.ObjectId.isValid(gymId)) {
-      return res.status(400).json({ error: 'Invalid gym ID' });
+    if (!mongoose.Types.ObjectId.isValid(gymId)) {
+      return res.status(400).json({ error: "Invalid gym ID" });
     }
 
     const gym = await Gym.findById(gymId).populate("ownerId", "name email");
@@ -582,12 +637,10 @@ export const updatePricePerHour = async (req, res) => {
       .json({ success: true, message: "Price updated successfully", gym: gym });
   } catch (error) {
     console.error("Error updating price per hour:", error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Failed to update price",
-        error: error.message,
-      });
+    res.status(500).json({
+      success: false,
+      message: "Failed to update price",
+      error: error.message,
+    });
   }
 };

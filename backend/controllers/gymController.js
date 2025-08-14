@@ -346,8 +346,9 @@ export const addGym = async (req, res, next) => {
       gym: savedGym,
     });
   } catch (error) {
-    next(error); // let the global handler format it
-  }
+  console.error("AddGym error:", error);
+  next(error);
+}
 };
 
 // Get all bookings for a gym (Owner only)

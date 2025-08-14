@@ -108,7 +108,7 @@ const AddGym = () => {
         gymForm.append("images", file);
       });
 
-      const response = await API.post("/gyms/addGym", gymForm, {
+      const response = await API.post("/gyms/add", gymForm, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

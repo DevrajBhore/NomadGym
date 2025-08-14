@@ -17,9 +17,8 @@ import recurringRoutes from "./routes/recurringRoutes.js";
 import "../backend/utils/cleanupOldAvailability.js";
 
 const app = express();
-const PORT = process.env.PORT || 2000; // Changed to match your frontend config
+const PORT = process.env.PORT || 2000; 
 
-import cors from "cors";
 app.use(cors({
   origin: process.env.CLIENT_URL || "https://nomadgym.xyz",
   credentials: true

@@ -133,10 +133,11 @@ const AddGym = () => {
           razorpayAccountId: "",
         });
 
-        if (response.data && response.data.data && response.data.data._id) {
-          navigate(`/admin/gym/${response.data.data._id}`);
+        const newGym = response.data.data;
+        if (newGym && newGym._id) {
+          navigate(`/admin/gym/${newGym._id}`);
         } else {
-          setTimeout(() => navigate("/admin/dashboard"), 2000);
+          // Handle error: gym ID missing
         }
       }
     } catch (err) {

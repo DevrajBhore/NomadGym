@@ -93,11 +93,7 @@ const AddGym = () => {
         if (key === "images" || key === "previewUrls") return; // skip previews
 
         if (key === "amenities") {
-          value
-            .split(",")
-            .map((a) => a.trim())
-            .filter(Boolean)
-            .forEach((amenity) => gymForm.append("amenities", amenity));
+          gymForm.append("amenities", value); // send as a single string
         } else {
           gymForm.append(key, value);
         }

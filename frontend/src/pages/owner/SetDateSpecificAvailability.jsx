@@ -117,7 +117,7 @@ const SetDateSpecificAvailability = () => {
               value={selectedDates}
               onChange={setSelectedDates}
               minDate={new Date()}
-              //Removed `format="YYYY-MM-DD"` — this causes the visual bug
+              portal
             />
           </div>
 

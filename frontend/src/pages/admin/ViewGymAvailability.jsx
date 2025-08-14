@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import API from "../../api/axiosConfig"
 import Loader from "../../components/Loader"
-import "../../styles/ViewGymAvailability.css" // New CSS file
+import "../../styles/ViewGymAvailability.css"
 
 const ViewGymAvailability = () => {
   const { gymId } = useParams()
@@ -15,11 +15,18 @@ const ViewGymAvailability = () => {
 
   useEffect(() => {
     const fetchAllAvailability = async () => {
+      if (!gymId || gymId.length !== 24) {
+        setError("Invalid gym ID.")
+        setLoading(false)
+        return
+      }
       try {
         // Fetch gym details
         const gymResponse = await API.get(`/gyms/${gymId}`)
         if (gymResponse.status === 200) {
-          setGymName(gymResponse.data.gym.name)
+          // Support both { gym: {...} } and { data: {...} }
+          const gymObj = gymResponse.data.gym || gymResponse.data.data || {}
+          setGymName(gymObj.name || "Unknown Gym")
         } else {
           setError("Gym not found.")
           setLoading(false)
@@ -29,12 +36,18 @@ const ViewGymAvailability = () => {
         // Fetch all availability using the new admin endpoint
         const availabilityResponse = await API.get(`/availability/admin/${gymId}/all`)
         if (availabilityResponse.status === 200) {
-          setDateSpecificAvailability(availabilityResponse.data.dateSpecific)
-          setRecurringAvailability(availabilityResponse.data.recurring)
+          setDateSpecificAvailability(availabilityResponse.data.dateSpecific || [])
+          setRecurringAvailability(availabilityResponse.data.recurring || [])
+        } else {
+          setError("Failed to load availability.")
         }
       } catch (err) {
         console.error("Error fetching all gym availability for admin:", err)
-        setError(err.response?.data?.message || "Failed to load all availability.")
+        setError(
+          err.response?.data?.error ||
+          err.response?.data?.message ||
+          "Failed to load all availability."
+        )
       } finally {
         setLoading(false)
       }
@@ -80,7 +93,7 @@ const ViewGymAvailability = () => {
               {dateSpecificAvailability.map((dateAvail) => (
                 <div key={dateAvail._id} className="date-card">
                   <h4>{dateAvail.date}</h4>
-                  {dateAvail.availableSlots.length > 0 ? (
+                  {dateAvail.availableSlots && dateAvail.availableSlots.length > 0 ? (
                     <ul className="slots-list">
                       {dateAvail.availableSlots.map((slot, idx) => (
                         <li key={idx}>{slot}</li>

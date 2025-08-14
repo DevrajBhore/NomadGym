@@ -22,7 +22,7 @@ const gymRoutes = express.Router();
 gymRoutes.post("/add", verifyToken, verifyAdmin, upload.array("images", 8), addGym); // This FIRST
 
 // Then add this to prevent GET /add conflicts
-gymRoutes.get("/add", (req, res) => res.status(405).send("Use POST method"));
+// gymRoutes.get("/add", (req, res) => res.status(405).send("Use POST method"));
 
 
 // ----------------------

@@ -1,56 +1,63 @@
 // routes/gymRoutes.js
-import express from "express"
+import express from "express";
+import upload from "../middleware/multer.js"; // adjust if your upload middleware path differs
 import {
+  getAllGymsPublic,
   addGym,
   getOwnerGyms,
   getBookingsForGym,
   updatePricePerHour,
   getAllCities,
-  getGymsByCity,
   getCityGymStats,
+  getGymsByCity,
+  getAmenities,
+  getNearbyGyms,
   getAllGyms,
   getGymDetails,
-  getNearbyGyms,
   getGymById,
-  getAmenities,
-  getAllGymsPublic
-} from "../controllers/gymController.js"
-import { verifyToken, verifyAdmin, verifyGymOwner } from "../middleware/authMiddleware.js"
-import upload from "../middleware/upload.js"
+} from "../controllers/gymController.js";
+import { verifyToken } from "../middleware/authMiddleware.js";
+import { verifyAdmin, verifyGymOwner } from "../middleware/roleMiddleware.js"; // adjust if combined elsewhere
 
-const router = express.Router()
+const router = express.Router();
 
-router.get("/all-public", getAllGymsPublic)
+// ----------------------
+// Static & specific routes (NO params)
+// ----------------------
+router.get("/all-public", getAllGymsPublic);
+router.post("/add", verifyToken, verifyGymOwner, upload.array("images", 8), addGym);
 
-// Admin adds a gym
-router.post("/add", verifyToken, verifyAdmin, upload.array("images", 8), addGym)
+// Optional guard so accidental GET /add doesn't fall into :gymId
+router.get("/add", (_req, res) =>
+  res.status(405).json({ success: false, error: "METHOD_NOT_ALLOWED", message: "Use POST /api/gyms/add" })
+);
 
-// Gym Owner views their gyms
-router.get("/my-gyms", verifyToken, verifyGymOwner, getOwnerGyms)
+router.get("/my-gyms", verifyToken, verifyGymOwner, getOwnerGyms);
+router.get("/cities", getAllCities);
+router.get("/city-stats", getCityGymStats);
+router.get("/amenities", getAmenities);
+router.get("/nearby", getNearbyGyms);
+router.get("/search", getNearbyGyms); // if this is truly the same handler by design
 
-// Gym Owner views bookings for their specific gym
-router.get("/:gymId/bookings", verifyToken, verifyGymOwner, getBookingsForGym)
+// Admin-only list of all gyms
+router.get("/all-gyms", verifyToken, verifyAdmin, getAllGyms);
 
-// Gym Owner updates hourly price
-router.patch("/update-price/:gymId", verifyToken, verifyGymOwner, updatePricePerHour)
+// Bookings for a specific gym (must come BEFORE generic :gymId)
+router.get("/:gymId([0-9a-fA-F]{24})/bookings", verifyToken, verifyGymOwner, getBookingsForGym);
 
-// Publicly accessible routes
-router.get("/cities", getAllCities)
-router.get("/city-stats", getCityGymStats)
-router.get("/city/:city", getGymsByCity)
-router.get("/amenities", getAmenities)
+// Update price by gym (specific, still param — keep before generic catch-alls)
+router.patch("/update-price/:gymId([0-9a-fA-F]{24})", verifyToken, verifyGymOwner, updatePricePerHour);
 
-router.get("/nearby", getNearbyGyms)
-router.get("/search", getNearbyGyms)
+// City-specific listing (named param that is NOT an ObjectId — keep before :gymId)
+router.get("/city/:city", getGymsByCity);
 
-// Admin gets all gyms
-router.get("/all-gyms", verifyToken, verifyAdmin, getAllGyms)
+// ----------------------
+// ID-based routes (param constrained to 24-hex ObjectId)
+// ----------------------
+router.get("/details/:gymId([0-9a-fA-F]{24})", getGymDetails);
+router.get("/by-id/:id([0-9a-fA-F]{24})", getGymById);
 
-// Public gym detail pages (fix route conflicts)
-router.get("/details/:gymId", getGymDetails)
-router.get("/by-id/:id", getGymById)
+// Final generic ID route (leave LAST)
+router.get("/:gymId([0-9a-fA-F]{24})", getGymDetails);
 
-// Fix: Add a route to get gym by ID for owner dashboard
-router.get("/:gymId", getGymDetails)
-
-export default router
+export default router;

@@ -1,6 +1,6 @@
 // routes/gymRoutes.js
 import express from "express";
-import upload from "../middleware/multer.js"; // adjust if your upload middleware path differs
+import upload from "../middleware/upload.js"; // adjust if your upload middleware path differs
 import {
   getAllGymsPublic,
   addGym,

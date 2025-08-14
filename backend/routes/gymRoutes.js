@@ -17,7 +17,7 @@ import {
 } from "../controllers/gymController.js";
 import { verifyToken, verifyAdmin, verifyGymOwner } from "../middleware/authMiddleware.js";
 
-const gymRoutes = express.gymRoutes();
+const gymRoutes = express.Router();
 
 // ----------------------
 // Static routes (no parameters)

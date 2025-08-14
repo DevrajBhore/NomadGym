@@ -1,4 +1,7 @@
 // controllers/gymController.js
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 import Gym from "../models/Gym.js";
 import User from "../models/Users.js";
 import Booking from "../models/Booking.js";
@@ -212,6 +215,8 @@ export const getGymById = async (req, res) => {
 // Add new gym (Admin only)
 export const addGym = async (req, res, next) => {
   try {
+    console.log("BODY:", req.body);
+    console.log("FILES:", req.files);
     const {
       name, description, address, city, state, pincode,
       contactNumber, email, pricePerHour, capacity,

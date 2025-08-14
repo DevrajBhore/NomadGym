@@ -133,7 +133,11 @@ const AddGym = () => {
           razorpayAccountId: "",
         });
 
-        setTimeout(() => navigate("/admin/dashboard"), 2000);
+        if (response.data && response.data.data && response.data.data._id) {
+          navigate(`/admin/gym/${response.data.data._id}`);
+        } else {
+          setTimeout(() => navigate("/admin/dashboard"), 2000);
+        }
       }
     } catch (err) {
       console.error("Add Gym error:", err.response?.data || err.message);

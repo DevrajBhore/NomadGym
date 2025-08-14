@@ -86,7 +86,7 @@ const userLogin = async (req, res) => {
       });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
@@ -106,10 +106,13 @@ const userLogin = async (req, res) => {
     res
       .cookie("token", token, {
         httpOnly: true,
-        secure: true, // set to true in production with HTTPS
+        secure: true,
         sameSite: "none",
+        domain: ".nomadgym.xyz",
+        path: "/",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
+
       .status(200)
       .json({
         message: "Login successful",
@@ -246,7 +249,6 @@ const userLogout = async (req, res) => {
     res.status(500).json({ error: "Something went wrong" });
   }
 };
-
 
 const googleCallbackController = (req, res) => {
   const user = req.user;

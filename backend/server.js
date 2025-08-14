@@ -19,16 +19,14 @@ import "../backend/utils/cleanupOldAvailability.js";
 const app = express();
 const PORT = process.env.PORT || 2000; // Changed to match your frontend config
 
-app.use(
-  cors({
-    origin: [
-      process.env.CLIENT_URL,
-      "https://nomadgym.xyz",
-      "http://localhost:5173",
-    ],
-    credentials: true,
-  })
-);
+import cors from "cors";
+app.use(cors({
+  origin: process.env.CLIENT_URL || "https://nomadgym.xyz",
+  credentials: true
+}));
+app.options("*", cors());
+app.set("trust proxy", 1); // if behind Cloudflare/NGINX
+
 
 app.use(express.json());
 app.use(cookieParser());

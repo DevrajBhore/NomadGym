@@ -35,7 +35,7 @@ router.get("/all-gyms", verifyToken, verifyAdmin, getAllGyms);
 // Dynamic routes with specific paths
 // ----------------------
 // Add gym route (with upload middleware)
-router.post("/add", verifyToken, verifyAdmin, upload.array("images", 8), addGym);
+router.post("/addGym", verifyToken, verifyAdmin, upload.array("images", 8), addGym);
 
 // Bookings for specific gym
 router.get("/:gymId/bookings", verifyToken, verifyGymOwner, getBookingsForGym);

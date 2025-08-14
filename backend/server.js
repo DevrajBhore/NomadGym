@@ -20,12 +20,9 @@ const app = express();
 const PORT = process.env.PORT || 2000; 
 
 app.use(cors({
-  origin: process.env.CLIENT_URL || "https://nomadgym.xyz",
+  origin: [process.env.CLIENT_URL || "https://nomadgym.xyz"],
   credentials: true
 }));
-app.options("*", cors());
-app.set("trust proxy", 1); // if behind Cloudflare/NGINX
-
 
 app.use(express.json());
 app.use(cookieParser());

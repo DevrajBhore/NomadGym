@@ -510,6 +510,10 @@ export const getGymDetails = async (req, res) => {
   try {
     const { gymId } = req.params;
 
+     if (!mongoose.Types.ObjectId.isValid(gymId)) {
+      return res.status(400).json({ error: 'Invalid gym ID' });
+    }
+
     const gym = await Gym.findById(gymId).populate("ownerId", "name email");
 
     if (!gym) {

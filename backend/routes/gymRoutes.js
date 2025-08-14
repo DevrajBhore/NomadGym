@@ -13,7 +13,6 @@ import {
   getNearbyGyms,
   getAllGyms,
   getGymDetails,
-  getGymById,
 } from "../controllers/gymController.js";
 import { verifyToken, verifyAdmin, verifyGymOwner } from "../middleware/authMiddleware.js";
 
@@ -28,7 +27,6 @@ gymRoutes.get("/cities", getAllCities);
 gymRoutes.get("/city-stats", getCityGymStats);
 gymRoutes.get("/amenities", getAmenities);
 gymRoutes.get("/nearby", getNearbyGyms);
-gymRoutes.get("/search", getNearbyGyms);
 gymRoutes.get("/all-gyms", verifyToken, verifyAdmin, getAllGyms);
 
 // ----------------------
@@ -47,10 +45,8 @@ gymRoutes.patch("/:gymId/update-price", verifyToken, verifyGymOwner, updatePrice
 gymRoutes.get("/city/:city", getGymsByCity);
 
 // ----------------------
-// ID-based routes
+// Gym details by ID (single route)
 // ----------------------
-gymRoutes.get("/details/:gymId", getGymDetails);
-gymRoutes.get("/by-id/:id", getGymById);
 gymRoutes.get("/:gymId", getGymDetails);
 
 export default gymRoutes;

@@ -18,6 +18,13 @@ import { verifyToken, verifyAdmin, verifyGymOwner } from "../middleware/authMidd
 
 const gymRoutes = express.Router();
 
+// Correct route order:
+gymRoutes.post("/add", verifyToken, verifyAdmin, upload.array("images", 8), addGym); // This FIRST
+
+// Then add this to prevent GET /add conflicts
+gymRoutes.get("/add", (req, res) => res.status(405).send("Use POST method"));
+
+
 // ----------------------
 // Static routes (no parameters)
 // ----------------------
@@ -33,7 +40,7 @@ gymRoutes.get("/all-gyms", verifyToken, verifyAdmin, getAllGyms);
 // Dynamic routes with specific paths
 // ----------------------
 // Add gym route (with upload middleware)
-gymRoutes.post("/add", verifyToken, verifyAdmin, upload.array("images", 8), addGym);
+// gymRoutes.post("/add", verifyToken, verifyAdmin, upload.array("images", 8), addGym);
 
 // Bookings for specific gym
 gymRoutes.get("/:gymId/bookings", verifyToken, verifyGymOwner, getBookingsForGym);

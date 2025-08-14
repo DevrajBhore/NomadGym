@@ -261,12 +261,10 @@ export const addGym = async (req, res, next) => {
     const lat = Number(latitude);
     const lng = Number(longitude);
     if (![price, cap, lat, lng].every(Number.isFinite)) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Invalid number in pricePerHour/capacity/latitude/longitude",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Invalid number in pricePerHour/capacity/latitude/longitude",
+      });
     }
     if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
       return res
@@ -276,23 +274,30 @@ export const addGym = async (req, res, next) => {
 
     const owner = await User.findOne({ email: ownerEmail });
     if (!owner)
-      return res
-        .status(404)
-        .json({
-          success: false,
-          message: "User with this email does not exist",
-        });
+      return res.status(404).json({
+        success: false,
+        message: "User with this email does not exist",
+      });
     if (!owner.isVerified)
-      return res
-        .status(403)
-        .json({
-          success: false,
-          message: "User is not verified. Cannot assign gym ownership.",
-        });
+      return res.status(403).json({
+        success: false,
+        message: "User is not verified. Cannot assign gym ownership.",
+      });
 
     if (owner.role !== "gym_owner") {
       owner.role = "gym_owner";
       await owner.save();
+    }
+
+    if (
+      !latitude ||
+      !longitude ||
+      isNaN(Number(latitude)) ||
+      isNaN(Number(longitude))
+    ) {
+      return res
+        .status(400)
+        .json({ message: "Latitude and longitude must be valid numbers." });
     }
 
     // images
@@ -321,8 +326,8 @@ export const addGym = async (req, res, next) => {
             .map((s) => s.trim())
         : [],
       imageUrls,
-      latitude: lat.toString(),
-      longitude: lng.toString(),
+      latitude: latitude.toString(),
+      longitude: longitude.toString(),
       ownerId: owner._id,
       location: { type: "Point", coordinates: [lng, lat] },
     });
@@ -346,9 +351,9 @@ export const addGym = async (req, res, next) => {
       gym: savedGym,
     });
   } catch (error) {
-  console.error("AddGym error:", error);
-  next(error);
-}
+    console.error("AddGym error:", error);
+    next(error);
+  }
 };
 
 // Get all bookings for a gym (Owner only)

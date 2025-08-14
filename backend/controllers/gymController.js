@@ -210,115 +210,81 @@ export const getGymById = async (req, res) => {
 };
 
 // Add new gym (Admin only)
-export const addGym = async (req, res) => {
+export const addGym = async (req, res, next) => {
   try {
     const {
-      name,
-      description,
-      address,
-      city,
-      state,
-      pincode,
-      contactNumber,
-      email,
-      pricePerHour,
-      capacity,
-      amenities,
-      latitude,
-      longitude,
-      ownerEmail,
+      name, description, address, city, state, pincode,
+      contactNumber, email, pricePerHour, capacity,
+      amenities, latitude, longitude, ownerEmail
     } = req.body;
 
-    // 🔍 Find the user (regardless of current role)
+    // auth guard if self-serve (optional):
+    // if (ownerEmail !== req.user?.email) return res.status(403).json({ success:false, message:"You can only add a gym for your own account" });
+
+    const required = { name, description, address, city, state, pincode, contactNumber, email, ownerEmail };
+    for (const [k, v] of Object.entries(required)) {
+      if (v == null || String(v).trim() === "") {
+        return res.status(400).json({ success: false, message: `Missing field: ${k}` });
+      }
+    }
+
+    const price = Number(pricePerHour);
+    const cap = Number(capacity);
+    const lat = Number(latitude);
+    const lng = Number(longitude);
+    if (![price, cap, lat, lng].every(Number.isFinite)) {
+      return res.status(400).json({ success: false, message: "Invalid number in pricePerHour/capacity/latitude/longitude" });
+    }
+    if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+      return res.status(400).json({ success: false, message: "Coordinates out of range" });
+    }
+
     const owner = await User.findOne({ email: ownerEmail });
+    if (!owner) return res.status(404).json({ success: false, message: "User with this email does not exist" });
+    if (!owner.isVerified) return res.status(403).json({ success: false, message: "User is not verified. Cannot assign gym ownership." });
 
-    if (!owner) {
-      return res.status(404).json({
-        success: false,
-        message: "User with this email does not exist",
-      });
-    }
-
-    // ✅ Check if verified
-    if (!owner.isVerified) {
-      return res.status(403).json({
-        success: false,
-        message: "User is not verified. Cannot assign gym ownership.",
-      });
-    }
-
-    // 🔁 Promote to gym_owner if not already
     if (owner.role !== "gym_owner") {
       owner.role = "gym_owner";
       await owner.save();
     }
 
-    // ✅ Validate required fields
-    if (
-      !name ||
-      !description ||
-      !address ||
-      !city ||
-      !state ||
-      !pincode ||
-      !contactNumber ||
-      !email ||
-      !pricePerHour ||
-      !capacity ||
-      !latitude ||
-      !longitude
-    ) {
-      return res.status(400).json({
-        success: false,
-        message: "All required fields must be provided",
-      });
+    // images
+    const imageUrls = Array.isArray(req.files)
+      ? req.files.map(f => f.path || f.location || f.secure_url).filter(Boolean)
+      : [];
+
+    const newGym = new Gym({
+      name, description, address, city, state, pincode,
+      contactNumber, email,
+      pricePerHour: price,
+      capacity: cap,
+      amenities: Array.isArray(amenities) ? amenities : (amenities ? String(amenities).split(",").map(s=>s.trim()) : []),
+      imageUrls,
+      latitude: lat,
+      longitude: lng,
+      ownerId: owner._id,
+      location: { type: "Point", coordinates: [lng, lat] }
+    });
+
+    let savedGym;
+    try {
+      savedGym = await newGym.save();
+    } catch (e) {
+      if (e.code === 11000) return res.status(409).json({ success: false, message: "Duplicate gym", key: e.keyValue });
+      if (e.name === "ValidationError") return res.status(400).json({ success: false, message: e.message });
+      throw e;
     }
 
-    // 📷 Get image URLs (if using Cloudinary/multer)
-    const imageUrls = req.files?.map((file) => file.path) || [];
-
-    // 🏋️ Create and save gym
-    const newGym = new Gym({
-      name,
-      description,
-      address,
-      city,
-      state,
-      pincode,
-      contactNumber,
-      email,
-      pricePerHour,
-      capacity,
-      amenities: amenities || [],
-      imageUrls,
-      latitude,
-      longitude,
-      ownerId: owner._id,
-      location: {
-        type: "Point",
-        coordinates: [
-          Number.parseFloat(longitude),
-          Number.parseFloat(latitude),
-        ],
-      },
-    });
-
-    const savedGym = await newGym.save();
-
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       message: "Gym added successfully and user promoted to gym_owner",
-      gym: savedGym,
+      gym: savedGym
     });
   } catch (error) {
-    console.error("Error adding gym:", error);
-    res.status(500).json({
-      success: false,
-      message: "Failed to add gym",
-      error: error.message,
-    });
+    next(error); // let the global handler format it
   }
 };
+
 
 
 // Get all bookings for a gym (Owner only)

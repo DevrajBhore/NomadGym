@@ -110,37 +110,25 @@ export const verifyBookingPayment = async (req, res) => {
       bookingId,
     } = req.body;
 
-    if (
-      !razorpay_payment_id ||
-      !razorpay_order_id ||
-      !razorpay_signature ||
-      !bookingId
-    ) {
-      return res
-        .status(400)
-        .json({ error: "Missing required fields for verification" });
+    if (!razorpay_payment_id || !razorpay_order_id || !razorpay_signature || !bookingId) {
+      return res.status(400).json({ error: "Missing required fields for verification" });
     }
 
     const booking = await Booking.findById(bookingId).populate("gym");
-    if (!booking) {
-      return res.status(404).json({ error: "Booking not found" });
-    }
+    if (!booking) return res.status(404).json({ error: "Booking not found" });
 
-    // Verify signature
+    // 1) Verify signature
     const generatedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_SECRET)
       .update(`${razorpay_order_id}|${razorpay_payment_id}`)
       .digest("hex");
-
     if (generatedSignature !== razorpay_signature) {
       return res.status(400).json({ error: "Invalid Razorpay signature" });
     }
 
+    // 2) Mark booking paid + set OTP window
     const otp = Math.floor(100000 + Math.random() * 900000);
-    const startMoment = moment(
-      `${booking.date} ${booking.timeSlot}`,
-      "YYYY-MM-DD hh:mm A"
-    );
+    const startMoment = moment(`${booking.date} ${booking.timeSlot}`, "YYYY-MM-DD hh:mm A");
     const expiryTime = moment(startMoment).add(1, "hour");
 
     booking.razorpayPaymentId = razorpay_payment_id;
@@ -149,35 +137,55 @@ export const verifyBookingPayment = async (req, res) => {
     booking.isPaid = true;
     booking.isVerified = false;
 
-    // Transfer money to gym (after platform cut)
-    if (booking.gym.razorpayAccountId) {
-      const platformFee = Math.round(booking.amount * 0.2);
-      const gymShare = booking.amount - platformFee;
+    // 3) Create transfer FROM the captured payment to the gym linked account
+    // booking.amount is usually in RUPEES. Convert to paise for Razorpay.
+    // Example: 20% platform fee.
+    if (booking.gym?.razorpayAccountId) {
+      const amountPaise = Math.round(Number(booking.amount) * 100); // RUPEES -> PAISE
+      const platformFeePaise = Math.round(amountPaise * 0.20);
+      const gymSharePaise = amountPaise - platformFeePaise;
+
+      // Optional: delay settlement until session ends (recommended)
+      // const holdUntilUnix = Math.floor(moment(startMoment).add(1, "hour").valueOf() / 1000);
 
       try {
-        await razorpay.transfers.create({
-          account: booking.gym.razorpayAccountId,
-          amount: gymShare * 100,
-          currency: "INR",
-          notes: { bookingId: booking._id.toString() },
+        await razorpay.payments.transfer(razorpay_payment_id, {
+          transfers: [
+            {
+              account: booking.gym.razorpayAccountId, // e.g. "acc_********"
+              amount: gymSharePaise,
+              currency: "INR",
+              notes: { bookingId: String(booking._id), gymId: String(booking.gym._id) },
+              // on_hold: true,
+              // on_hold_until: holdUntilUnix,
+              linked_account_notes: ["bookingId", "gymId"],
+            },
+          ],
         });
+
+        // (Optional) Save payout status fields for your dashboard
+        booking.payout = {
+          status: "initiated",
+          amountPaise: gymSharePaise,
+          account: booking.gym.razorpayAccountId,
+        };
       } catch (err) {
-        console.error("Razorpay transfer error:", err);
-        return res.status(500).json({ error: "Razorpay transfer failed" });
+        console.error("Razorpay payments.transfer error:", err?.response?.data || err);
+        // You can still keep booking paid but record the payout failure for retry
+        booking.payout = { status: "failed", error: err?.response?.data || String(err) };
+        await booking.save();
+        return res.status(502).json({ error: "Payout to gym failed. We will retry." });
       }
     }
 
     await booking.save();
-
-    res.status(200).json({
-      message: "Booking confirmed",
-      booking,
-    });
+    return res.status(200).json({ message: "Booking confirmed", booking });
   } catch (error) {
     console.error("Payment verification error:", error);
-    res.status(500).json({ error: "Failed to verify payment" });
+    return res.status(500).json({ error: "Failed to verify payment" });
   }
 };
+
 
 // ===================== OTP VERIFICATION =========================
 export const verifyOtpBooking = async (req, res) => {

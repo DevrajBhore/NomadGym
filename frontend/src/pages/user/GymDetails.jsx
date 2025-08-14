@@ -172,7 +172,7 @@ const GymDetails = () => {
       </div>
 
       <div className="gym-details-section">
-        <h2 className="">Book Your Slot</h2>
+        <h2>Book Your Slot</h2>
         <div className="availability-form">
           <label htmlFor="bookingDate">Select Date:</label>
           <DatePicker

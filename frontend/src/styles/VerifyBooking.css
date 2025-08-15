@@ -43,6 +43,7 @@
   border: 1px solid var(--color-gray-300);
   border-radius: 8px;
   font-size: 1rem;
+  color: black;
 }
 
 .verify-booking-form .input-base:focus {

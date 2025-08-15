@@ -20,7 +20,10 @@ const app = express();
 const PORT = process.env.PORT || 2000; 
 
 app.use(cors({
-  origin: [process.env.CLIENT_URL || "https://nomadgym.xyz"],
+  origin: [
+    process.env.CLIENT_URL || "https://nomadgym.xyz",
+    "http://localhost:5173"
+  ],
   credentials: true
 }));
 
@@ -36,7 +39,7 @@ app.use(
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
     cookie: {
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     },

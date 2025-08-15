@@ -117,7 +117,8 @@ const SetDateSpecificAvailability = () => {
               value={selectedDates}
               onChange={setSelectedDates}
               minDate={new Date()}
-              portal
+              format="YYYY-MM-DD"
+              render={<div />} // Inline picker
             />
           </div>
 

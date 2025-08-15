@@ -13,6 +13,7 @@ import {
   getNearbyGyms,
   getAllGyms,
   getGymDetails,
+  getAdminGymAvailability,
 } from "../controllers/gymController.js";
 import { verifyToken, verifyAdmin, verifyGymOwner } from "../middleware/authMiddleware.js";
 
@@ -23,7 +24,6 @@ gymRoutes.post("/add", verifyToken, verifyAdmin, upload.array("images", 8), addG
 
 // Then add this to prevent GET /add conflicts
 // gymRoutes.get("/add", (req, res) => res.status(405).send("Use POST method"));
-
 
 // ----------------------
 // Static routes (no parameters)
@@ -55,5 +55,6 @@ gymRoutes.get("/city/:city", getGymsByCity);
 // Gym details by ID (single route)
 // ----------------------
 gymRoutes.get("/:gymId", getGymDetails);
+gymRoutes.get("/availability/admin/:gymId/all", verifyToken, verifyAdmin, getAdminGymAvailability);
 
 export default gymRoutes;

@@ -70,11 +70,11 @@ const OwnerDashboard = () => {
     fetchOwnerData();
   }, []);
 
-  const handlePriceChange = (gymId, value) => {
-    setNewPrice((prev) => ({ ...prev, [gymId]: value }));
-  };
+    const _handlePriceChange = (gymId, value) => {
+      setNewPrice((prev) => ({ ...prev, [gymId]: value }));
+    };
 
-  const handleUpdatePrice = async (gymId) => {
+    const _handleUpdatePrice = async (gymId) => {
     setPriceUpdateMessage("");
     const price = newPrice[gymId];
     if (!price || price < 1) {
@@ -96,14 +96,14 @@ const OwnerDashboard = () => {
         // Clear message after 3 seconds
         setTimeout(() => setPriceUpdateMessage(""), 3000);
       }
-    } catch (err) {
-      console.error("Error updating price:", err);
-      setPriceUpdateMessage(
-        err.response?.data?.message || "Failed to update price."
-      );
-      setTimeout(() => setPriceUpdateMessage(""), 5000);
-    }
-  };
+      } catch (err) {
+        console.error("Error updating price:", err);
+        setPriceUpdateMessage(
+          err.response?.data?.message || "Failed to update price."
+        );
+        setTimeout(() => setPriceUpdateMessage(""), 5000);
+      }
+    };
 
   const handleDeleteImage = async (gymId, imageUrl) => {
     try {
@@ -117,7 +117,7 @@ const OwnerDashboard = () => {
           )
         );
       }
-    } catch (err) {
+    } catch {
       setError("Failed to delete image.");
     }
   };
@@ -138,7 +138,7 @@ const OwnerDashboard = () => {
           )
         );
       }
-    } catch (err) {
+    } catch {
       setError("Failed to add images.");
     }
   };

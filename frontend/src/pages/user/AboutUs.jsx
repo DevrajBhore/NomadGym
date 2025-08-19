@@ -41,8 +41,8 @@ const AboutUs = () => {
         <Sparkle size={28} /> Our Vision
       </h2>
       <p>
-        Nomad Gym’s vision is to redefine fitness by offering flexible,
-        movement-based workouts that adapt to your lifestyle.
+          Nomad Gym’s vision is to redefine fitness by offering flexible,
+          movement-based workouts that adapt to your lifestyle.
       </p>
 
       <h2>

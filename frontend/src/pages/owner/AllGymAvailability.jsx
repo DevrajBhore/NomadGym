@@ -18,7 +18,7 @@ const AllGymAvailability = () => {
     const fetchAllAvailability = async () => {
       try {
         // First get gym details
-        const gymResponse = await API.get(`/gyms/${gymId}`)
+        const gymResponse = await API.get(`/gyms/details/${gymId}`)
         if (gymResponse.status === 200) {
           setGymName(gymResponse.data.gym.name)
         } else {

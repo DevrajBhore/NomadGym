@@ -14,6 +14,8 @@ import {
   getAllGyms,
   getGymDetails,
   getAdminGymAvailability,
+  deleteGymImage,
+  addGymImages,
 } from "../controllers/gymController.js";
 import { verifyToken, verifyAdmin, verifyGymOwner } from "../middleware/authMiddleware.js";
 
@@ -56,5 +58,11 @@ gymRoutes.get("/city/:city", getGymsByCity);
 // ----------------------
 gymRoutes.get("/:gymId", getGymDetails);
 gymRoutes.get("/availability/admin/:gymId/all", verifyToken, verifyAdmin, getAdminGymAvailability);
+
+// PATCH /gyms/:gymId/delete-image
+gymRoutes.patch("/:gymId/delete-image", verifyToken, verifyGymOwner, deleteGymImage);
+
+// PATCH /gyms/:gymId/add-images
+gymRoutes.patch("/:gymId/add-images", verifyToken, verifyGymOwner, upload.array("images", 8), addGymImages);
 
 export default gymRoutes;

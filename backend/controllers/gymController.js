@@ -650,3 +650,51 @@ export const updatePricePerHour = async (req, res) => {
     });
   }
 };
+
+export const deleteGymImage = async (req, res) => {
+  try {
+    const { gymId } = req.params;
+    const { imageUrl } = req.body;
+
+    const gym = await Gym.findById(gymId);
+    if (!gym) return res.status(404).json({ success: false, message: "Gym not found" });
+
+    // Ensure the logged-in user is the owner
+    if (gym.ownerId.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ success: false, message: "Unauthorized" });
+    }
+
+    gym.imageUrls = gym.imageUrls.filter(url => url !== imageUrl);
+    await gym.save();
+
+    res.json({ success: true, message: "Image deleted", images: gym.imageUrls });
+  } catch (error) {
+    console.error("Delete gym image error:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+export const addGymImages = async (req, res) => {
+  try {
+    const { gymId } = req.params;
+    const gym = await Gym.findById(gymId);
+    if (!gym) return res.status(404).json({ success: false, message: "Gym not found" });
+
+    // Ensure the logged-in user is the owner
+    if (gym.ownerId.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ success: false, message: "Unauthorized" });
+    }
+
+    const newImages = Array.isArray(req.files)
+      ? req.files.map(f => f.path || f.location || f.secure_url).filter(Boolean)
+      : [];
+
+    gym.imageUrls = [...gym.imageUrls, ...newImages];
+    await gym.save();
+
+    res.json({ success: true, message: "Images added", images: gym.imageUrls });
+  } catch (error) {
+    console.error("Add gym images error:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};

@@ -13,7 +13,6 @@ import {
   getNearbyGyms,
   getAllGyms,
   getGymDetails,
-  getAdminGymAvailability,
   deleteGymImage,
   addGymImages,
 } from "../controllers/gymController.js";
@@ -57,7 +56,7 @@ gymRoutes.get("/city/:city", getGymsByCity);
 // Gym details by ID (single route)
 // ----------------------
 gymRoutes.get("/:gymId", getGymDetails);
-gymRoutes.get("/availability/admin/:gymId/all", verifyToken, verifyAdmin, getAdminGymAvailability);
+// gymRoutes.get("/availability/admin/:gymId/all", verifyToken, verifyAdmin, );
 
 // PATCH /gyms/:gymId/delete-image
 gymRoutes.patch("/:gymId/delete-image", verifyToken, verifyGymOwner, deleteGymImage);

@@ -105,6 +105,44 @@ const OwnerDashboard = () => {
     }
   };
 
+  const handleDeleteImage = async (gymId, imageUrl) => {
+    try {
+      const response = await API.patch(`/gyms/${gymId}/delete-image`, { imageUrl });
+      if (response.status === 200) {
+        setGyms(gyms =>
+          gyms.map(gym =>
+            gym._id === gymId
+              ? { ...gym, imageUrls: gym.imageUrls.filter(url => url !== imageUrl) }
+              : gym
+          )
+        );
+      }
+    } catch (err) {
+      setError("Failed to delete image.");
+    }
+  };
+
+  const handleAddImages = async (gymId, files) => {
+    const formData = new FormData();
+    Array.from(files).forEach(file => formData.append("images", file));
+    try {
+      const response = await API.patch(`/gyms/${gymId}/add-images`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      if (response.status === 200 && response.data.images) {
+        setGyms(gyms =>
+          gyms.map(gym =>
+            gym._id === gymId
+              ? { ...gym, imageUrls: [...gym.imageUrls, ...response.data.images] }
+              : gym
+          )
+        );
+      }
+    } catch (err) {
+      setError("Failed to add images.");
+    }
+  };
+
   if (loading) {
     return <Loader />;
   }
@@ -252,6 +290,33 @@ const OwnerDashboard = () => {
                       </div>
                     </div>
                   )}
+                </div>
+
+                <div className="image-edit-section">
+                  <h4>Edit Images</h4>
+                  <div className="image-list">
+                    {gym.imageUrls.map((img, idx) => (
+                      <div key={idx} className="image-edit-item">
+                        <img
+                          src={img}
+                          alt={`Gym Image ${idx + 1}`}
+                          className="dashboard-gym-image"
+                        />
+                        <button
+                          className="delete-image-btn"
+                          onClick={() => handleDeleteImage(gym._id, img)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={(e) => handleAddImages(gym._id, e.target.files)}
+                  />
                 </div>
 
                 {/* <div className="price-update-section">

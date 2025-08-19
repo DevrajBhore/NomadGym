@@ -5,6 +5,8 @@ dotenv.config();
 import Gym from "../models/Gym.js";
 import User from "../models/Users.js";
 import Booking from "../models/Booking.js";
+import GymAvailability from "../models/GymAvailability.js";
+import RecurringAvailability from "../models/RecurringAvailability.js";
 
 // Helper function to calculate distance using Haversine formula
 const calculateDistance = (lat1, lon1, lat2, lon2) => {
@@ -696,5 +698,28 @@ export const addGymImages = async (req, res) => {
   } catch (error) {
     console.error("Add gym images error:", error);
     res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+export const getAdminGymAvailability = async (req, res) => {
+  try {
+    const { gymId } = req.params;
+    if (!gymId || gymId.length !== 24) {
+      return res.status(400).json({ error: "Invalid gym ID" });
+    }
+    const gym = await Gym.findById(gymId);
+    if (!gym) {
+      return res.status(404).json({ message: "Gym not found" });
+    }
+    const dateSpecificAvailability = await GymAvailability.find({ gym: gymId }).sort({ date: 1 });
+    const recurringAvailability = await RecurringAvailability.find({ gym: gymId });
+    res.status(200).json({
+      message: "Gym availability fetched successfully",
+      dateSpecific: dateSpecificAvailability,
+      recurring: recurringAvailability,
+    });
+  } catch (error) {
+    console.error("Get Admin Gym Availability Error:", error);
+    res.status(500).json({ message: "Server Error" });
   }
 };

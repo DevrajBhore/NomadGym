@@ -319,6 +319,62 @@
   border-radius: 8px;
 }
  
+/* Image edit section */
+.image-edit-section {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--color-gray-100, #f7f7f7);
+  border-radius: 10px;
+}
+
+.image-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.image-edit-item {
+  position: relative;
+  width: 120px;
+  height: 90px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.image-edit-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.delete-image-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  transition: background 0.2s;
+}
+
+.delete-image-btn:hover {
+  background: #c0392b;
+}
+
+.image-edit-section input[type="file"] {
+  margin-top: 0.5rem;
+}
+
 @media (min-width: 640px) {
   .dashboard-actions {
     flex-direction: row;

@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom"
 import API from "../../api/axiosConfig"
 import Loader from "../../components/Loader"
 import "../../styles/Explore.css"
-import "../../styles/GymCards.css"
+import "../../styles/ExGymCards.css"
 import { Star, MapPin, ArrowBigRight } from "lucide-react"
 
 const Explore = () => {

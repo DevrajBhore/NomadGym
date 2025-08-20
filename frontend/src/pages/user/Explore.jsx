@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react"
 import "../../styles/Explore.css"
+import Loader from "../../components/Loader";
 import { MapPin, ArrowBigRight } from "lucide-react"
 
 // Mock React Router for preview
@@ -151,7 +152,7 @@ const Explore = () => {
     ]
   }, [cities])
 
-  if (loading) return <Loader />
+  if (loading) return <Loader />;
   if (error) return <div className="error-message-center">{error}</div>
 
   const handleCityClick = (city) => console.log(`Clicked on ${city?.name}`)

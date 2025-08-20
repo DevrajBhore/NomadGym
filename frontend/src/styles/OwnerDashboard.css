@@ -324,6 +324,7 @@
   margin-top: 1.5rem;
   padding: 1rem;
   background: var(--color-gray-100, #f7f7f7);
+  color: black;
   border-radius: 10px;
 }
 

@@ -294,6 +294,7 @@ const OwnerDashboard = () => {
 
                 <div className="image-edit-section">
                   <h4>Edit Images</h4>
+                  <h3>Only png & jpeg formatted images can be upload</h3>
                   <div className="image-list">
                     {gym.imageUrls.map((img, idx) => (
                       <div key={idx} className="image-edit-item">

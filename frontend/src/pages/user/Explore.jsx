@@ -1,9 +1,10 @@
+// user/Explore.jsx
 import { useState, useEffect, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "../../styles/Explore.css";
+import API from "../../api/axiosConfig";
 import Loader from "../../components/Loader";
-import { MapPin, ArrowBigRight } from "lucide-react";
-
+import "../../styles/Explore.css";
+import { Star, MapPin, ArrowBigRight } from "lucide-react";
 const Explore = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -18,22 +19,12 @@ const Explore = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [citiesRes, gymsRes] = await Promise.all([
-          fetch("http://localhost:5000/gyms/city-stats"),
-          fetch("http://localhost:5000/gyms/all-public"),
-        ]);
-
-        if (!citiesRes.ok || !gymsRes.ok) {
-          throw new Error("Failed to fetch data");
-        }
-
-        const citiesData = await citiesRes.json();
-        const gymsData = await gymsRes.json();
-
-        setCities(Array.isArray(citiesData) ? citiesData : []);
-        setGyms(Array.isArray(gymsData) ? gymsData : []);
+        const cityRes = await API.get("/gyms/city-stats");
+        const gymRes = await API.get("/gyms/all-public");
+        if (cityRes.status === 200) setCities(cityRes.data.data);
+        if (gymRes.status === 200) setGyms(gymRes.data.data);
       } catch (err) {
-        console.error("Error fetching data:", err);
+        console.error("Error loading data:", err);
         setError("Failed to load gyms/cities. Try again later.");
       } finally {
         setLoading(false);
@@ -50,11 +41,7 @@ const Explore = () => {
 
   const filteredCities = useMemo(() => {
     const term = searchTerm.toLowerCase();
-    return cities.filter(
-      (c) =>
-        (c?._id || "").toLowerCase().includes(term) ||
-        (c?.name || "").toLowerCase().includes(term)
-    );
+    return cities.filter((c) => (c?._id || "").toLowerCase().includes(term));
   }, [searchTerm, cities]);
 
   const filteredGyms = useMemo(() => {
@@ -86,8 +73,7 @@ const Explore = () => {
   if (loading) return <Loader />;
   if (error) return <div className="error-message-center">{error}</div>;
 
-  const handleCityClick = (city) =>
-    console.log(`Clicked on ${city?.name}`);
+  const handleCityClick = (city) => console.log(`Clicked on ${city?.name}`);
   const clearSearch = () => setSearchTerm("");
 
   return (
@@ -112,7 +98,7 @@ const Explore = () => {
                   className="search-input"
                 />
                 <div className="search-icon">
-                  <i className="ri-search-line">🔍</i>
+                  <i className="ri-search-line"></i>
                 </div>
                 {!!searchTerm && (
                   <button className="clear-search" onClick={clearSearch}>
@@ -152,6 +138,7 @@ const Explore = () => {
             const description =
               city?.description || "Explore gyms available in this city.";
             const totalGyms = Number(city?.totalGyms) || 0;
+            const image = city?.image || "/placeholder.svg";
             const popular = Boolean(city?.popular);
 
             return (
@@ -163,6 +150,7 @@ const Explore = () => {
               >
                 {popular && <div className="popular-badge">Popular</div>}
                 <div className="city-image">
+                  {/*<img src={image} alt={name} />*/}
                   <div className="city-overlay">
                     <h3 className="city-name">{name}</h3>
                   </div>
@@ -211,8 +199,7 @@ const Explore = () => {
                   <div className="gym-card-image-wrapper">
                     <img
                       src={
-                        Array.isArray(gym.imageUrls) &&
-                        gym.imageUrls.length > 0
+                        Array.isArray(gym.imageUrls) && gym.imageUrls.length > 0
                           ? gym.imageUrls[0]
                           : "/placeholder.svg?height=200&width=300&query=gym equipment"
                       }
@@ -223,10 +210,7 @@ const Explore = () => {
                   <div className="gym-card-content">
                     <h3 className="gym-name">{gym.name}</h3>
                     <h4>Description</h4>
-                    <h5 className="gym-description">
-                      {gym.description?.slice(0, 100) ||
-                        "No description provided."}
-                    </h5>
+                    <h5 className="gym-description">{gym.description?.slice(0, 100) || "No description provided."}</h5>
                     <p className="gym-city">
                       <MapPin size={16} /> {gym.city}
                     </p>
@@ -243,8 +227,8 @@ const Explore = () => {
         <div className="cta-content">
           <h2>Don't See Your City?</h2>
           <p>
-            We're expanding rapidly! Let us know where you'd like to see NomadGym
-            next.
+            We're expanding rapidly! Let us know where you'd like to see
+            NomadGym next.
           </p>
           <Link to="/contactus" className="btn cta-btn">
             Request Your City
@@ -256,3 +240,4 @@ const Explore = () => {
 };
 
 export default Explore;
+

@@ -59,7 +59,7 @@ const AllGymAvailability = () => {
       <div className="all-gym-availability-card card-base">
         <h2>All Availability for {gymName}</h2>
 
-        <div className="availability-section">
+        {/* <div className="availability-section">
           <h3>Recurring Availability</h3>
           {recurringAvailability.length === 0 ? (
             <p className="no-availability-message">No recurring availability set.</p>
@@ -77,7 +77,7 @@ const AllGymAvailability = () => {
               Edit Recurring Availability
             </Link>
           </div>
-        </div>
+        </div> */}
 
         <div className="availability-section">
           <h3>Date-Specific Availability</h3>

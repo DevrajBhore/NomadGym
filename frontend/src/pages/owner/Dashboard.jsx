@@ -163,7 +163,7 @@ const OwnerDashboard = () => {
 
   return (
     <div className="owner-dashboard-container">
-      <h2>Your Gyms Dashboard</h2>
+      <h2>Your Gym's Dashboard</h2>
       {priceUpdateMessage && (
         <p className="info-message success-message">{priceUpdateMessage}</p>
       )}

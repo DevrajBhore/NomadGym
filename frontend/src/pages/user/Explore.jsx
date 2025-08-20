@@ -1,64 +1,65 @@
 // user/Explore.jsx
-import { useState, useEffect, useMemo } from "react"
-import { Link, useLocation } from "react-router-dom"
-import API from "../../api/axiosConfig"
-import Loader from "../../components/Loader"
-import "../../styles/Explore.css"
-import "../../styles/ExGymCards.css"
-import { Star, MapPin, ArrowBigRight } from "lucide-react"
-
+import { useState, useEffect, useMemo } from "react";
+import { Link, useLocation } from "react-router-dom";
+import API from "../../api/axiosConfig";
+import Loader from "../../components/Loader";
+import "../../styles/Explore.css";
+import { Star, MapPin, ArrowBigRight } from "lucide-react";
 const Explore = () => {
-  const location = useLocation()
-  const params = new URLSearchParams(location.search)
-  const initialQuery = params.get("search") || ""
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const initialQuery = params.get("search") || "";
 
-  const [cities, setCities] = useState([])
-  const [gyms, setGyms] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState("")
-  const [searchTerm, setSearchTerm] = useState(initialQuery)
+  const [cities, setCities] = useState([]);
+  const [gyms, setGyms] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [searchTerm, setSearchTerm] = useState(initialQuery);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const cityRes = await API.get("/gyms/city-stats")
-        const gymRes = await API.get("/gyms/all-public")
-        if (cityRes.status === 200) setCities(cityRes.data.data)
-        if (gymRes.status === 200) setGyms(gymRes.data.data)
+        const cityRes = await API.get("/gyms/city-stats");
+        const gymRes = await API.get("/gyms/all-public");
+        if (cityRes.status === 200) setCities(cityRes.data.data);
+        if (gymRes.status === 200) setGyms(gymRes.data.data);
       } catch (err) {
-        console.error("Error loading data:", err)
-        setError("Failed to load gyms/cities. Try again later.")
+        console.error("Error loading data:", err);
+        setError("Failed to load gyms/cities. Try again later.");
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    fetchData()
-  }, [])
+    };
+    fetchData();
+  }, []);
 
   // Keep searchTerm in sync with the URL
   useEffect(() => {
-    const newQuery = new URLSearchParams(location.search).get("search") || ""
-    setSearchTerm(newQuery)
-  }, [location.search])
+    const newQuery = new URLSearchParams(location.search).get("search") || "";
+    setSearchTerm(newQuery);
+  }, [location.search]);
 
   const filteredCities = useMemo(() => {
-    const term = searchTerm.toLowerCase()
-    return cities.filter((c) => (c?._id || "").toLowerCase().includes(term))
-  }, [searchTerm, cities])
+    const term = searchTerm.toLowerCase();
+    return cities.filter((c) => (c?._id || "").toLowerCase().includes(term));
+  }, [searchTerm, cities]);
 
   const filteredGyms = useMemo(() => {
-    const term = searchTerm.toLowerCase()
+    const term = searchTerm.toLowerCase();
     return gyms.filter(
       (g) =>
         (g?.name || "").toLowerCase().includes(term) ||
         (g?.description || "").toLowerCase().includes(term) ||
-        (g?.city || "").toLowerCase().includes(term),
-    )
-  }, [searchTerm, gyms])
+        (g?.city || "").toLowerCase().includes(term)
+    );
+  }, [searchTerm, gyms]);
 
   const stats = useMemo(() => {
-    const cityCount = cities.length
-    const totalGyms = cities.reduce((sum, c) => sum + (Number(c?.totalGyms) || 0), 0)
+    const cityCount = cities.length;
+    const totalGyms = cities.reduce(
+      (sum, c) => sum + (Number(c?.totalGyms) || 0),
+      0
+    );
     return [
       { number: String(cityCount), label: cityCount === 1 ? "City" : "Cities" },
       {
@@ -66,14 +67,14 @@ const Explore = () => {
         label: totalGyms === 1 ? "Partner Gym" : "Partner Gyms",
       },
       { number: "24/7", label: "Support" },
-    ]
-  }, [cities])
+    ];
+  }, [cities]);
 
-  if (loading) return <Loader />
-  if (error) return <div className="error-message-center">{error}</div>
+  if (loading) return <Loader />;
+  if (error) return <div className="error-message-center">{error}</div>;
 
-  const handleCityClick = (city) => console.log(`Clicked on ${city?.name}`)
-  const clearSearch = () => setSearchTerm("")
+  const handleCityClick = (city) => console.log(`Clicked on ${city?.name}`);
+  const clearSearch = () => setSearchTerm("");
 
   return (
     <section className="cities-page">
@@ -82,7 +83,8 @@ const Explore = () => {
         <div className="container">
           <h1 className="cities-title">Find Your City</h1>
           <p className="cities-subtitle">
-            Discover NomadGym locations across India. Find the perfect fitness solution in your city.
+            Discover NomadGym locations across India. Find the perfect fitness
+            solution in your city.
           </p>
 
           <div className="search-section">
@@ -105,8 +107,10 @@ const Explore = () => {
                 )}
               </div>
               <div className="search-results-count">
-                {filteredCities.length} {filteredCities.length === 1 ? "city" : "cities"} &nbsp;•&nbsp;
-                {filteredGyms.length} {filteredGyms.length === 1 ? "gym" : "gyms"} found
+                {filteredCities.length}{" "}
+                {filteredCities.length === 1 ? "city" : "cities"} &nbsp;•&nbsp;
+                {filteredGyms.length}{" "}
+                {filteredGyms.length === 1 ? "gym" : "gyms"} found
               </div>
             </div>
           </div>
@@ -129,12 +133,13 @@ const Explore = () => {
       <div className="cities-grid container">
         {filteredCities.length > 0 ? (
           filteredCities.map((city) => {
-            const id = city?._id || city?.id
-            const name = city?.name || city?._id || "Unknown City"
-            const description = city?.description || "Explore gyms available in this city."
-            const totalGyms = Number(city?.totalGyms) || 0
-            const image = city?.image || "/placeholder.svg"
-            const popular = Boolean(city?.popular)
+            const id = city?._id || city?.id;
+            const name = city?.name || city?._id || "Unknown City";
+            const description =
+              city?.description || "Explore gyms available in this city.";
+            const totalGyms = Number(city?.totalGyms) || 0;
+            const image = city?.image || "/placeholder.svg";
+            const popular = Boolean(city?.popular);
 
             return (
               <Link
@@ -145,7 +150,7 @@ const Explore = () => {
               >
                 {popular && <div className="popular-badge">Popular</div>}
                 <div className="city-image">
-                  {/*<img src={image || "/placeholder.svg"} alt={name} />*/}
+                  {/*<img src={image} alt={name} />*/}
                   <div className="city-overlay">
                     <h3 className="city-name">{name}</h3>
                   </div>
@@ -155,7 +160,9 @@ const Explore = () => {
                   <div className="city-stats">
                     <div className="city-stat">
                       <span className="stat-number">{totalGyms}</span>
-                      <span className="stat-label">{totalGyms === 1 ? "Partner Gym" : "Partner Gyms"}</span>
+                      <span className="stat-label">
+                        {totalGyms === 1 ? "Partner Gym" : "Partner Gyms"}
+                      </span>
                     </div>
                   </div>
                   <button className="btn city-btn">
@@ -166,7 +173,7 @@ const Explore = () => {
                   </button>
                 </div>
               </Link>
-            )
+            );
           })
         ) : (
           <div className="no-results container">
@@ -186,84 +193,27 @@ const Explore = () => {
         <section className="matching-gyms-section">
           <div className="container">
             <h2 className="section-title">Matching Gyms</h2>
-            <div className="gyms-grid">
+            <div className="gyms-list">
               {filteredGyms.map((gym) => (
-                <Link to={`/gym/${gym._id}`} key={gym._id} className="gym-card-modern">
-                  <div className="gym-card-header">
-                    <div className="premium-badge">Premium</div>
-                    <div className="gym-distance">
-                      <MapPin size={14} />
-                      <span>0.58 KM</span>
-                    </div>
-                  </div>
-
-                  <div className="gym-image-container">
+                <Link to={`/gym/${gym._id}`} key={gym._id} className="gym-card">
+                  <div className="gym-card-image-wrapper">
                     <img
                       src={
                         Array.isArray(gym.imageUrls) && gym.imageUrls.length > 0
                           ? gym.imageUrls[0]
-                          : "/placeholder.svg?height=200&width=300&query=modern gym with purple neon lighting"
+                          : "/placeholder.svg?height=200&width=300&query=gym equipment"
                       }
                       alt={gym.name}
-                      className="gym-image"
+                      className="gym-card-image"
                     />
-                    <div className="image-carousel-dots">
-                      <div className="dot active"></div>
-                      <div className="dot"></div>
-                      <div className="dot"></div>
-                      <div className="dot"></div>
-                      <div className="dot"></div>
-                    </div>
                   </div>
-
-                  <div className="gym-card-body">
-                    <div className="gym-header">
-                      <h3 className="gym-name">{gym.name}</h3>
-                      <div className="gym-rating">
-                        <span className="rating-score">4.5</span>
-                        <Star size={16} fill="currentColor" />
-                      </div>
-                    </div>
-
-                    <div className="gym-location">
-                      <MapPin size={16} />
-                      <span>{gym.city}</span>
-                    </div>
-
-                    <div className="gym-reviews">
-                      <span className="review-count">25</span>
-                      <span className="review-text">Reviews</span>
-                    </div>
-
-                    <div className="gym-amenities">
-                      <div className="amenity-item">
-                        <div className="amenity-icon">💨</div>
-                        <span>Steam</span>
-                      </div>
-                      <div className="amenity-item">
-                        <div className="amenity-icon">❄️</div>
-                        <span>AC</span>
-                      </div>
-                      <div className="amenity-item">
-                        <div className="amenity-icon">🚗</div>
-                        <span>Car Parking</span>
-                      </div>
-                      <div className="amenities-more">
-                        <span>14+</span>
-                        <span>Amenities</span>
-                      </div>
-                    </div>
-
-                    <div className="gym-pricing">
-                      <div className="pricing-info">
-                        <p className="pricing-description">Access this and all Premium & Basic Gyms</p>
-                      </div>
-                      <div className="pricing-amount">
-                        <span className="currency">₹</span>
-                        <span className="price">79</span>
-                        <span className="period">/Session</span>
-                      </div>
-                    </div>
+                  <div className="gym-card-content">
+                    <h3 className="gym-name">{gym.name}</h3>
+                    <h4>Description</h4>
+                    <h5 className="gym-description">{gym.description?.slice(0, 100) || "No description provided."}</h5>
+                    <p className="gym-city">
+                      <MapPin size={16} /> {gym.city}
+                    </p>
                   </div>
                 </Link>
               ))}
@@ -276,14 +226,17 @@ const Explore = () => {
       <div className="cities-cta container">
         <div className="cta-content">
           <h2>Don't See Your City?</h2>
-          <p>We're expanding rapidly! Let us know where you'd like to see NomadGym next.</p>
+          <p>
+            We're expanding rapidly! Let us know where you'd like to see
+            NomadGym next.
+          </p>
           <Link to="/contactus" className="btn cta-btn">
             Request Your City
           </Link>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Explore
+export default Explore;

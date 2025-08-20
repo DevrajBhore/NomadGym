@@ -201,7 +201,7 @@ const Explore = () => {
                       src={
                         Array.isArray(gym.imageUrls) && gym.imageUrls.length > 0
                           ? gym.imageUrls[0]
-                          : "/placeholder.svg"
+                          : "/placeholder.svg?height=200&width=300&query=gym equipment"
                       }
                       alt={gym.name}
                       className="gym-card-image"
@@ -210,18 +210,10 @@ const Explore = () => {
                   <div className="gym-card-content">
                     <h3 className="gym-name">{gym.name}</h3>
                     <h4>Description</h4>
-                    <h5 className="gym-description">
-                      {gym.description?.slice(0, 100) ||
-                        "No description provided."}
-                    </h5>
+                    <h5 className="gym-description">{gym.description?.slice(0, 100) || "No description provided."}</h5>
                     <p className="gym-city">
                       <MapPin size={16} /> {gym.city}
                     </p>
-                    {/* {gym.averageRating && (
-                      <p className="gym-rating">
-                        <Star size={16} /> {gym.averageRating.toFixed(1)} / 5
-                      </p>
-                    )} */}
                   </div>
                 </Link>
               ))}

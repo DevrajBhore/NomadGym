@@ -21,14 +21,14 @@
 
 .dashboard-gym-image {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   object-fit: cover;
   border-radius: 16px;
 }
 
 .swiper-button-prev,
 .swiper-button-next {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0);
   color: #fff;
   padding: 0.4rem;
   border-radius: 50%;

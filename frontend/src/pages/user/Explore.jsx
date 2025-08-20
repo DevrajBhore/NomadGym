@@ -210,10 +210,10 @@ const Explore = () => {
                   <div className="gym-card-content">
                     <h3 className="gym-name">{gym.name}</h3>
                     <h4>Description</h4>
-                    <p className="gym-description">
+                    <h5 className="gym-description">
                       {gym.description?.slice(0, 100) ||
                         "No description provided."}
-                    </p>
+                    </h5>
                     <p className="gym-city">
                       <MapPin size={16} /> {gym.city}
                     </p>

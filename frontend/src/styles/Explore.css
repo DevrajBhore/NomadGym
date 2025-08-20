@@ -452,32 +452,45 @@ body {
 
 /* Modern CTA Section */
 .cities-cta {
-  margin: 4rem 0;
+  background: #f5f7fa;
+  padding: 3rem 1rem;
+  text-align: center;
+  border-radius: 1rem;
+  margin-top: 4rem;
+}
+
+.cta-content h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.cta-content p {
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: #00c2a8;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .cta-content {
-  background: linear-gradient(135deg, rgba(0, 194, 168, 0.1), rgba(0, 0, 0, 0.3)), url("/images/dontseegym.webp") center
-    center / cover no-repeat;
-  border-radius: var(--border-radius-large);
-  padding: 4rem 2rem;
+  background: 
+    url("/images/dontseegym.webp") no-repeat center center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  border-radius: 24px;
+  padding: 50px;
   text-align: center;
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-content::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 1;
-}
-
-.cta-content > * {
-  position: relative;
-  z-index: 2;
+  margin-bottom: 0px;
+  color: #ffffff;
 }
 
 .cta-content h2 {

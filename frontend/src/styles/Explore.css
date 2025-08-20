@@ -1,383 +1,69 @@
-/* General Reset & Font */
+/* Modern CSS Custom Properties */
+:root {
+  --primary-color: #00c2a8;
+  --primary-hover: #00b39a;
+  --accent-color: #ff4757;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --text-muted: #bbb;
+  --background-dark: rgba(0, 0, 0, 0.7);
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --shadow-light: 0 4px 14px rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.15);
+  --shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.12);
+  --border-radius: 1rem;
+  --border-radius-large: 1.5rem;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Modern Reset & Base Styles */
 * {
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: rgba(0,0,0,0.7);
-  margin: 0;
-  color: #111;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+  background: var(--background-dark);
+  color: var(--text-primary);
+  line-height: 1.6;
 }
 
-.matching-gyms-section {
-  padding: 4rem 1rem;
-}
-
-.matching-gyms-section .container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 2.5rem;
-  color: white;
-}
-
-/* .container {
+/* Container System */
+.container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-} */
-
-
-.gyms-grid {
-  margin-top: 3rem;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  color: var(--color-apple-dark);
-}
-
-.gyms-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.gym-card {
-  background-color: #fff;
-  border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  padding: 1.25rem;
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.gym-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-}
-
-.gym-card-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.gym-name {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--color-apple-dark);
-}
-
-.gym-description {
-  font-size: 0.95rem;
-  color: var(--color-gray-700);
-  line-height: 1.4;
-}
-
-.gym-city,
-.gym-rating {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.85rem;
-  color: var(--color-gray-600);
-}
-
-
-
-/* Stats Section */
-.cities-stats {
-  margin: 3rem 0;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1.5rem;
-}
-
-.stat-card {
-  background: #ffffff;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  text-align: center;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-}
-
-.matching-gyms-section {
-  margin: 3rem 0;
   padding: 0 1rem;
 }
 
-.gyms-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}
-
-.gym-card {
-  display: flex;
-  flex-direction: column;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 1rem;
-  /* overflow: hidden; */
-  transition: transform 0.2s ease;
-  text-decoration: none;
-  color: #fff;
-  backdrop-filter: blur(12px);
-}
-
-.gym-card:hover {
-  transform: translateY(-6px);
-}
-
-.gym-card-image-wrapper {
-  width: 100%;
-  /* aspect-ratio: 4 / 3; */
-  overflow: -moz-hidden-unscrollable;
-  border-radius: 12px;
-  background-color: #f2f2f2;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-}
-
-.gym-card-image {
-  width: 100% !important;
-  height: 300px !important;
-  object-fit: contain !important;
-  background-color: #141313 !important;
-  display: block;
-}
-
-
-.gym-card:hover .gym-card-image {
-  transform: scale(1.03);
-}
-
-
-
-.gym-card-content {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.gym-name {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin: 0;
-  color: #fff;
-}
-
-.gym-description {
-  font-size: 0.95rem;
-  color: #d1d1d1;
-  line-height: 1.4;
-}
-
-.gym-city,
-.gym-rating {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 0.9rem;
-  color: #bbb;
-}
-
-
-.stat-card h3 {
-  font-size: 2rem;
-  color: #00c2a8;
-  margin: 0;
-}
-
-.stat-card p {
-  font-size: 0.95rem;
-  margin-top: 0.25rem;
-  color: #666;
-}
-
-/* Cities Grid */
-/* .cities-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  padding-top: 2rem;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  justify-content: center;
-  justify-items: center;
-} */
-
-.cities-grid {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
-.city-card {
-  display: flex;
-  flex-direction: column;
-  border-radius: 1rem;
-  overflow: hidden;
-  transition: transform 0.25s ease;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  text-decoration: none;
-  color: white;
-  min-height: 380px;
-}
-
-.city-card:hover {
-  transform: translateY(-4px);
-}
-
-.city-image {
-  position: relative;
-  height: 180px;
-  background: url("/images/city-default.jpg") center center / cover no-repeat;
-}
-
-.city-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: flex-end;
-  padding: 1rem;
-}
-
-.city-name {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #fff;
-  margin: 0;
-}
-
-.city-info {
-  padding: 1rem 1.25rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.city-stat {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: #ccc;
-}
-
-.city-btn {
-  background: #00c2a8;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-weight: 500;
-  margin-top: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem;
-  width: 100%;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.city-btn:hover {
-  background: #00b39a;
-}
-
-.popular-badge {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background: #ff4757;
-  color: white;
-  padding: 0.25rem 0.75rem;
-  border-radius: 1rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  z-index: 2;
-}
-
-/* Gym Grid */
-.gyms-grid {
-  margin-top: 4rem;
-}
-
-.gyms-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}
-
-.gym-card {
-  background: #fff;
-  padding: 1rem;
-  border-radius: 1rem;
-  text-decoration: none;
-  color: #1c1c1e;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-}
-
-.gym-card-content h3 {
-  font-size: 1.25rem;
-  margin-bottom: 0.25rem;
-}
-
-.gym-description,
-.gym-city,
-.gym-rating {
-  font-size: 0.9rem;
-  color: #555;
-  margin: 0.2rem 0;
+/* Hero Section - Modern Glass Morphism */
+.cities-page {
+  min-height: 100vh;
 }
 
 .cities-hero {
   position: relative;
-  background: url("/images/explore.png") center center / cover no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  padding: 1rem;
+  background: linear-gradient(135deg, rgba(0, 194, 168, 0.1), rgba(0, 0, 0, 0.3)), url("/images/explore.png") center
+    center / cover no-repeat;
+  padding: 4rem 0;
   text-align: center;
-  color: white;
-  border-radius: 1rem;
+  color: var(--text-primary);
+  border-radius: var(--border-radius-large);
+  margin: 1rem;
   overflow: hidden;
+  backdrop-filter: blur(20px);
 }
 
 .cities-hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  /* background: rgba(0, 0, 0, 0.35); */
+  background: rgba(0, 0, 0, 0.2);
   z-index: 1;
-} 
+}
 
 .cities-hero .container {
   position: relative;
@@ -385,161 +71,600 @@ body {
 }
 
 .cities-title {
-  font-size: clamp(2.5rem, 5vw, 3rem);
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-  color: #fff;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--text-primary), var(--primary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .cities-subtitle {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  color: #e0e0e0;
-  max-width: 640px;
-  margin: 0 auto;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  font-weight: 400;
 }
 
-/* Search */
+/* Modern Search Section */
 .search-section {
   margin-top: 2rem;
 }
 
 .search-container {
-  padding: 1rem 1.5rem;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  color: #fff;
-  width: 100%;
-  max-width: 700px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-large);
+  backdrop-filter: blur(20px);
+  padding: 2rem;
+  max-width: 600px;
   margin: 0 auto;
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-medium);
+  transition: var(--transition);
+}
+
+.search-container:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
 }
 
 .search-input-wrapper {
   position: relative;
+  margin-bottom: 1rem;
 }
 
 .search-input {
   width: 100%;
-  padding: 0.75rem 1rem;
-  border-radius: 0.75rem;
-  border: 1px solid #ccc;
-  font-size: 1rem;
+  padding: 1rem 3rem 1rem 1.5rem;
+  border: 2px solid transparent;
+  border-radius: var(--border-radius);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.02);
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
 }
 
 .search-icon {
   position: absolute;
   top: 50%;
-  right: 1rem;
+  right: 1.5rem;
   transform: translateY(-50%);
-  color: #00c2a8;
-  font-size: 1.2rem;
+  color: var(--primary-color);
+  font-size: 1.3rem;
+  pointer-events: none;
 }
 
 .clear-search {
   position: absolute;
   top: 50%;
-  right: 2.5rem;
+  right: 3.5rem;
   transform: translateY(-50%);
   background: none;
   border: none;
-  font-size: 1.25rem;
-  color: #999;
+  font-size: 1.5rem;
+  color: var(--text-muted);
   cursor: pointer;
+  transition: var(--transition);
+  padding: 0.25rem;
+  border-radius: 50%;
+}
+
+.clear-search:hover {
+  color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .search-results-count {
-  margin-top: 0.75rem;
-  font-size: 0.9rem;
-  color: #888;
-}
-
-/* No Results */
-.no-results {
+  font-size: 1rem;
+  color: var(--text-secondary);
   text-align: center;
-  padding: 2rem 1rem;
 }
 
-.no-results-content h3 {
-  font-size: 1.25rem;
+/* Modern Stats Grid */
+.cities-stats {
+  margin: 3rem 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.stat-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-large);
+  backdrop-filter: blur(20px);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: var(--shadow-light);
+  transition: var(--transition);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.stat-card h3 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary-color);
   margin-bottom: 0.5rem;
 }
 
-.no-results-content p {
-  color: #777;
-  margin-bottom: 1rem;
+.stat-card p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
-/* CTA */
-.cities-cta {
-  background: #f5f7fa;
-  padding: 3rem 1rem;
+/* Modern Cities Grid */
+.cities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+}
+
+.city-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-large);
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+  transition: var(--transition);
+  text-decoration: none;
+  color: var(--text-primary);
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.city-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-hover);
+}
+
+.city-card.popular::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  z-index: 3;
+}
+
+.popular-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--accent-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 2;
+  box-shadow: var(--shadow-light);
+}
+
+.city-image {
+  position: relative;
+  height: 200px;
+  background: linear-gradient(135deg, var(--primary-color), rgba(0, 0, 0, 0.5)), url("/images/city-default.jpg") center
+    center / cover no-repeat;
+  overflow: hidden;
+}
+
+.city-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  display: flex;
+  align-items: flex-end;
+  padding: 1.5rem;
+}
+
+.city-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.city-info {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.city-info p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.city-stats {
+  margin: 1rem 0;
+}
+
+.city-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.stat-number {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.city-btn {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  transition: var(--transition);
+  text-decoration: none;
+  box-shadow: var(--shadow-light);
+}
+
+.city-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.arrow {
+  transition: var(--transition);
+}
+
+.city-btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* Modern Gyms Section */
+.matching-gyms-section {
+  margin: 4rem 0;
+  padding: 2rem 0;
+}
+
+.section-title {
   text-align: center;
-  border-radius: 1rem;
-  margin-top: 4rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 3rem;
+  color: var(--text-primary);
+}
+
+.gyms-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.gym-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-large);
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+  transition: var(--transition);
+  text-decoration: none;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.gym-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+.gym-card-image-wrapper {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  background: linear-gradient(135deg, var(--primary-color), rgba(0, 0, 0, 0.3));
+}
+
+.gym-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.gym-card:hover .gym-card-image {
+  transform: scale(1.1);
+}
+
+.gym-card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-grow: 1;
+}
+
+.gym-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.gym-card-content h4 {
+  font-size: 1rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  margin: 0;
+}
+
+.gym-description {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.gym-city,
+.gym-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Modern CTA Section */
+.cities-cta {
+  margin: 4rem 0;
+}
+
+.cta-content {
+  background: linear-gradient(135deg, rgba(0, 194, 168, 0.1), rgba(0, 0, 0, 0.3)), url("/images/dontseegym.webp") center
+    center / cover no-repeat;
+  border-radius: var(--border-radius-large);
+  padding: 4rem 2rem;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.cta-content > * {
+  position: relative;
+  z-index: 2;
 }
 
 .cta-content h2 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  color: white;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
 }
 
 .cta-content p {
-  color: white;
-  margin-bottom: 1.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .cta-btn {
   display: inline-block;
-  background: #00c2a8;
-  color: #fff;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.75rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
   font-weight: 600;
   text-decoration: none;
+  transition: var(--transition);
+  box-shadow: var(--shadow-light);
+  font-size: 1.1rem;
 }
 
-.cta-content {
-  background: 
-    url("/images/dontseegym.webp") no-repeat center center;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  border-radius: 24px;
-  padding: 50px;
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* No Results State */
+.no-results {
   text-align: center;
-  margin-bottom: 0px;
-  color: #ffffff;
+  padding: 4rem 2rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-large);
+  backdrop-filter: blur(20px);
+  margin: 2rem 0;
 }
 
+.no-results-content h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
 
-/* Responsive */
-@media (max-width: 768px) {
+.no-results-content p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.no-results .btn {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.no-results .btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+/* Error Message */
+.error-message-center {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--accent-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .cities-grid,
+  .gyms-list {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
   .stats-grid {
-    flex-direction: column;
-    gap: 1.25rem;
-    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 0.75rem;
   }
 
   .cities-hero {
-    padding: 4rem 1rem;
+    margin: 0.5rem;
+    padding: 3rem 0;
   }
 
   .search-container {
-    padding: 0.75rem;
+    padding: 1.5rem;
+  }
+
+  .cities-grid,
+  .gyms-list {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+  }
+
+  .stat-card {
+    padding: 1.5rem;
+  }
+
+  .stat-card h3 {
+    font-size: 2rem;
+  }
+
+  .city-info,
+  .gym-card-content {
+    padding: 1.25rem;
+  }
+
+  .cta-content {
+    padding: 3rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-input {
+    font-size: 1rem;
+    padding: 0.875rem 3rem 0.875rem 1.25rem;
+  }
+
+  .city-image {
+    height: 160px;
+  }
+
+  .gym-card-image-wrapper {
+    height: 160px;
   }
 
   .cities-title {
     font-size: 2rem;
   }
 
-  .gym-card {
-    padding: 0.75rem;
+  .section-title {
+    font-size: 1.75rem;
   }
 }
 
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
+/* Focus States for Better Accessibility */
+.search-input:focus,
+.city-btn:focus,
+.cta-btn:focus,
+.clear-search:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :root {
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.3);
+  }
+}

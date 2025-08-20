@@ -1,8 +1,5 @@
-"use client"
-
 import { useState, useEffect, useMemo } from "react"
-import Loader from "./Loader"
-import "../styles/Explore.css"
+import "../../styles/Explore.css"
 import { MapPin, ArrowBigRight } from "lucide-react"
 
 // Mock React Router for preview

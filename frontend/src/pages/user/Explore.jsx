@@ -209,6 +209,7 @@ const Explore = () => {
                   </div>
                   <div className="gym-card-content">
                     <h3 className="gym-name">{gym.name}</h3>
+                    <h4>Description</h4>
                     <p className="gym-description">
                       {gym.description?.slice(0, 100) ||
                         "No description provided."}
@@ -216,11 +217,11 @@ const Explore = () => {
                     <p className="gym-city">
                       <MapPin size={16} /> {gym.city}
                     </p>
-                    {gym.averageRating && (
+                    {/* {gym.averageRating && (
                       <p className="gym-rating">
                         <Star size={16} /> {gym.averageRating.toFixed(1)} / 5
                       </p>
-                    )}
+                    )} */}
                   </div>
                 </Link>
               ))}

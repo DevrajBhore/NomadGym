@@ -141,27 +141,37 @@ export const verifyBookingPayment = async (req, res) => {
     // booking.amount is usually in RUPEES. Convert to paise for Razorpay.
     // Example: 20% platform fee.
     if (booking.gym?.razorpayAccountId) {
-      const amountPaise = Math.round(Number(booking.amount) * 100); // RUPEES -> PAISE
-      const platformFeePaise = Math.round(amountPaise * 0.20);
-      const gymSharePaise = amountPaise - platformFeePaise;
+  const amountPaise = Math.round(Number(booking.amount) * 100);
+  const platformFeePaise = Math.round(amountPaise * 0.20); // 20% cut
+  const gymSharePaise = amountPaise - platformFeePaise;
 
-      // Optional: delay settlement until session ends (recommended)
-      // const holdUntilUnix = Math.floor(moment(startMoment).add(1, "hour").valueOf() / 1000);
+  try {
+    razorpay.payments.transfer(razorpay_payment_id, {
+      transfers: [
+        {
+          account: booking.gym.razorpayAccountId, // Gym’s Linked Account
+          amount: gymSharePaise,
+          currency: "INR",
+          notes: { bookingId: String(booking._id), gymId: String(booking.gym._id) },
+          linked_account_notes: ["bookingId", "gymId"],
+        },
+        {
+          account: process.env.NOMADGYM_ACCOUNT_ID, // Your platform’s Linked Account
+          amount: platformFeePaise,
+          currency: "INR",
+          notes: { bookingId: String(booking._id), role: "platform_fee" },
+          linked_account_notes: ["bookingId", "role"],
+        },
+      ],
+    });
 
-      try {
-        await razorpay.payments.transfer(razorpay_payment_id, {
-          transfers: [
-            {
-              account: booking.gym.razorpayAccountId, // e.g. "acc_********"
-              amount: gymSharePaise,
-              currency: "INR",
-              notes: { bookingId: String(booking._id), gymId: String(booking.gym._id) },
-              // on_hold: true,
-              // on_hold_until: holdUntilUnix,
-              linked_account_notes: ["bookingId", "gymId"],
-            },
-          ],
-        });
+    booking.payout = {
+      status: "initiated",
+      gymAmountPaise: gymSharePaise,
+      platformFeePaise,
+      account: booking.gym.razorpayAccountId,
+    };
+
 
         // (Optional) Save payout status fields for your dashboard
         booking.payout = {

@@ -123,7 +123,7 @@ const SetDateSpecificAvailability = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="startTime">Start Time (e.g., 09:00 AM):</label>
+            <label htmlFor="startTime">Start Time (e.g., 07:00 AM):</label>
             <input
               type="text"
               id="startTime"
@@ -136,7 +136,7 @@ const SetDateSpecificAvailability = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="endTime">End Time (e.g., 05:00 PM):</label>
+            <label htmlFor="endTime">End Time (e.g., 11:00 PM):</label>
             <input
               type="text"
               id="endTime"

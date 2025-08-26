@@ -81,7 +81,7 @@ const Explore = () => {
       {/* Hero Section */}
       <div className="cities-hero">
         <div className="container">
-          <h1 className="cities-title">Find Your City</h1>
+          <h1 className="cities-title">Find Your Gym</h1>
           <p className="cities-subtitle">
             Discover NomadGym locations across India. Find the perfect fitness
             solution in your city.

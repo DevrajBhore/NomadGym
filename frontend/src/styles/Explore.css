@@ -1,15 +1,12 @@
-/* Reset and Base Styles */
+/* Modern CSS for Explore Page */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 .cities-page {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
   min-height: 100vh;
-  color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .container {
@@ -20,40 +17,23 @@
 
 /* Hero Section */
 .cities-hero {
-  padding: 60px 0 40px;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-.cities-hero::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 30% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 70% 80%, rgba(255, 20, 147, 0.1) 0%, transparent 50%);
-  pointer-events: none;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 80px 0 60px;
+  text-align: center;
 }
 
 .cities-title {
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
-  text-align: center;
-  margin-bottom: 16px;
-  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin: 0 0 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .cities-subtitle {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  text-align: center;
-  color: #b0b0b0;
-  margin-bottom: 40px;
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  margin: 0 0 40px;
+  opacity: 0.9;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
@@ -62,7 +42,7 @@
 
 /* Search Section */
 .search-section {
-  margin-bottom: 40px;
+  margin: 40px 0;
 }
 
 .search-container {
@@ -72,29 +52,27 @@
 
 .search-input-wrapper {
   position: relative;
-  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .search-input {
   width: 100%;
   padding: 16px 50px 16px 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 25px;
-  color: #ffffff;
+  border: none;
+  background: transparent;
+  color: white;
   font-size: 16px;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-}
-
-.search-input:focus {
+  border-radius: 50px;
   outline: none;
-  border-color: #8a2be2;
-  box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
 }
 
 .search-input::placeholder {
-  color: #888;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .search-icon {
@@ -102,8 +80,8 @@
   right: 20px;
   top: 50%;
   transform: translateY(-50%);
-  color: #888;
-  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 20px;
 }
 
 .clear-search {
@@ -111,152 +89,155 @@
   right: 50px;
   top: 50%;
   transform: translateY(-50%);
-  background: none;
+  background: rgba(255, 255, 255, 0.2);
   border: none;
-  color: #888;
-  cursor: pointer;
-  font-size: 18px;
-  padding: 4px;
+  color: white;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
   transition: all 0.2s ease;
 }
 
 .clear-search:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .search-results-count {
   text-align: center;
-  color: #888;
+  margin-top: 15px;
   font-size: 14px;
+  opacity: 0.8;
 }
 
 /* Stats Section */
 .cities-stats {
-  margin-top: 40px;
+  margin-top: 60px;
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  gap: 30px;
   max-width: 800px;
   margin: 0 auto;
 }
 
 .stat-card {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   padding: 30px 20px;
   text-align: center;
-  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
 .stat-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(138, 43, 226, 0.2);
 }
 
 .stat-card h3 {
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 8px;
-  background: linear-gradient(135deg, #8a2be2 0%, #ff1493 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin: 0 0 10px;
+  color: white;
 }
 
 .stat-card p {
-  color: #b0b0b0;
   font-size: 1rem;
-  font-weight: 500;
+  margin: 0;
+  opacity: 0.9;
+  color: white;
 }
 
 /* Cities Grid */
 .cities-grid {
-  padding: 60px 0;
+  background: #f8fafc;
+  padding: 80px 20px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 30px;
 }
 
 .city-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
+  background: white;
+  border-radius: 20px;
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
   text-decoration: none;
   color: inherit;
-  transition: all 0.4s ease;
   position: relative;
+  border: 1px solid #e2e8f0;
 }
 
 .city-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(138, 43, 226, 0.3);
-  border-color: rgba(138, 43, 226, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
-.city-card.popular::before {
-  content: "Popular";
+.city-card.popular {
+  border: 2px solid #667eea;
+}
+
+.popular-badge {
   position: absolute;
-  top: 16px;
-  left: 16px;
-  background: linear-gradient(135deg, #8a2be2 0%, #ff1493 100%);
+  top: 15px;
+  right: 15px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
   padding: 6px 12px;
-  border-radius: 12px;
+  border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
   z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .city-image {
   height: 200px;
-  background: linear-gradient(135deg, #8a2be2 0%, #ff1493 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   position: relative;
-  overflow: hidden;
-}
-
-.city-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .city-overlay {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-  padding: 40px 20px 20px;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .city-name {
-  font-size: 1.5rem;
-  font-weight: 700;
   color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
   margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .city-info {
-  padding: 24px;
+  padding: 25px;
 }
 
 .city-info p {
-  color: #b0b0b0;
-  margin-bottom: 20px;
-  line-height: 1.5;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0 0 20px;
 }
 
 .city-stats {
-  margin-bottom: 24px;
+  margin: 20px 0;
 }
 
 .city-stat {
@@ -266,35 +247,35 @@
 }
 
 .stat-number {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #8a2be2;
+  color: #1e293b;
 }
 
 .stat-label {
-  color: #888;
+  color: #64748b;
   font-size: 0.9rem;
 }
 
 .btn {
-  background: linear-gradient(135deg, #8a2be2 0%, #ff1493 100%);
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
   border: none;
   padding: 12px 24px;
-  border-radius: 25px;
+  border-radius: 50px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  text-decoration: none;
   font-size: 14px;
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
 }
 
 .city-btn {
@@ -307,51 +288,70 @@
 }
 
 .city-card:hover .arrow {
-  transform: translateX(4px);
+  transform: translateX(5px);
+}
+
+/* No Results */
+.no-results {
+  background: #f8fafc;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.no-results-content {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.no-results-content h3 {
+  font-size: 1.5rem;
+  color: #1e293b;
+  margin: 0 0 10px;
+}
+
+.no-results-content p {
+  color: #64748b;
+  margin: 0 0 30px;
 }
 
 /* Matching Gyms Section */
 .matching-gyms-section {
-  padding: 60px 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: white;
+  padding: 80px 0;
 }
 
 .section-title {
   font-size: 2.5rem;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 40px;
-  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin: 0 0 50px;
+  color: #1e293b;
 }
 
 .gyms-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
 }
 
 .gym-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
+  background: white;
+  border-radius: 15px;
   overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
   text-decoration: none;
   color: inherit;
-  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
 }
 
 .gym-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(138, 43, 226, 0.2);
-  border-color: rgba(138, 43, 226, 0.3);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 .gym-card-image-wrapper {
-  height: 180px;
+  height: 200px;
   overflow: hidden;
 }
 
@@ -371,38 +371,41 @@
 }
 
 .gym-name {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 15px;
+  color: #1e293b;
 }
 
 .gym-card-content h4 {
-  font-size: 0.9rem;
-  color: #8a2be2;
-  margin-bottom: 4px;
+  font-size: 1rem;
   font-weight: 600;
+  margin: 0 0 8px;
+  color: #475569;
 }
 
 .gym-description {
-  color: #b0b0b0;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0 0 15px;
   font-size: 0.9rem;
-  line-height: 1.4;
-  margin-bottom: 12px;
-  font-weight: 400;
 }
 
 .gym-city {
   display: flex;
   align-items: center;
-  gap: 6px;
-  color: #888;
-  font-size: 0.85rem;
+  gap: 5px;
+  color: #667eea;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin: 0;
 }
 
 /* CTA Section */
 .cities-cta {
-  padding: 80px 0;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: white;
+  padding: 80px 20px;
   text-align: center;
 }
 
@@ -414,103 +417,62 @@
 .cta-content h2 {
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 16px;
-  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin: 0 0 20px;
 }
 
 .cta-content p {
-  color: #b0b0b0;
   font-size: 1.1rem;
-  margin-bottom: 32px;
   line-height: 1.6;
+  margin: 0 0 40px;
+  opacity: 0.9;
 }
 
 .cta-btn {
-  font-size: 1.1rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
   padding: 16px 32px;
-}
-
-/* No Results */
-.no-results {
-  padding: 80px 0;
-  text-align: center;
-}
-
-.no-results-content h3 {
-  font-size: 2rem;
-  margin-bottom: 16px;
-  color: #ffffff;
-}
-
-.no-results-content p {
-  color: #888;
-  margin-bottom: 24px;
-  font-size: 1.1rem;
+  font-size: 16px;
 }
 
 /* Error Message */
 .error-message-center {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   min-height: 50vh;
-  color: #ff6b6b;
-  font-size: 1.2rem;
+  color: #dc2626;
+  font-size: 1.1rem;
   text-align: center;
+  padding: 20px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .container {
-    padding: 0 16px;
+    padding: 0 15px;
   }
 
   .cities-hero {
-    padding: 40px 0 30px;
-  }
-
-  .cities-title {
-    font-size: 2.5rem;
-  }
-
-  .cities-subtitle {
-    font-size: 1rem;
-  }
-
-  .search-input {
-    padding: 14px 45px 14px 16px;
-    font-size: 14px;
-  }
-
-  .stats-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .stat-card {
-    padding: 24px 16px;
-  }
-
-  .stat-card h3 {
-    font-size: 2rem;
+    padding: 60px 0 40px;
   }
 
   .cities-grid {
     grid-template-columns: 1fr;
+    padding: 60px 15px;
     gap: 20px;
-    padding: 40px 0;
   }
 
-  .city-card {
-    margin: 0 auto;
-    max-width: 400px;
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .gyms-list {
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .search-input-wrapper {
+    margin: 0 10px;
   }
 
   .section-title {
@@ -519,81 +481,31 @@
 
   .cta-content h2 {
     font-size: 2rem;
-  }
-
-  .cta-content p {
-    font-size: 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .cities-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
+  }
+
+  .cities-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .stat-card {
+    padding: 20px 15px;
   }
 
   .stat-card h3 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
-  .city-name {
-    font-size: 1.25rem;
+  .city-info {
+    padding: 20px;
   }
 
-  .section-title {
-    font-size: 1.8rem;
-  }
-
-  .cta-content h2 {
-    font-size: 1.8rem;
+  .gym-card-content {
+    padding: 15px;
   }
 }
-
-/* Loading and Animation Enhancements */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.city-card,
-.gym-card,
-.stat-card {
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-.city-card:nth-child(2) {
-  animation-delay: 0.1s;
-}
-.city-card:nth-child(3) {
-  animation-delay: 0.2s;
-}
-.city-card:nth-child(4) {
-  animation-delay: 0.3s;
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Focus States */
-.search-input:focus,
-.btn:focus,
-.city-card:focus,
-.gym-card:focus {
-  outline: 2px solid #8a2be2;
-  outline-offset: 2px;
-}
-h2 {
-  font-family: 'Arial Black', Gadget, sans-serif;
-}
-

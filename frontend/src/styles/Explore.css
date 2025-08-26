@@ -593,3 +593,6 @@
   outline: 2px solid #8a2be2;
   outline-offset: 2px;
 }
+h2 {
+  font-family: 'Arial Black', Gadget, sans-serif;
+}

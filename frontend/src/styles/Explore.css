@@ -1,8 +1,8 @@
 /* Custom CSS for enhanced styling */
-@theme inline {
+/* @theme inline {
   --font-heading: var(--font-space-grotesk);
   --font-body: var(--font-dm-sans);
-}
+} */
 
 /* Smooth scrolling */
 html {

@@ -50,10 +50,10 @@ const GymInfoCard = ({ gym, onClose }) => {
   };
 
   // Safe image fallback
-  const getGymImage = (url) =>
-    url && url.trim() !== ""
-      ? url
-      : "https://source.unsplash.com/400x300/?gym,fitness,workout";
+    const getGymImage = (url) =>
+      url && url.trim() !== ""
+        ? url
+        : "https://source.unsplash.com/400x300/?gym,fitness,workout";
 
   return (
     <div className="gym-card-backdrop" onClick={handleBackdropClick}>
@@ -70,21 +70,21 @@ const GymInfoCard = ({ gym, onClose }) => {
             style={{ borderRadius: "8px" }}
           >
             {(gym.imageUrls?.length ? gym.imageUrls : ["/placeholder.svg"]).map(
-              (url, i) => (
-                <SwiperSlide key={i}>
-                  <img
-                    src={url}
-                    alt={`Image ${i + 1}`}
-                    style={{
-                      width: "100%",
-                      height: "140px",
-                      objectFit: "cover",
-                      borderRadius: "8px",
-                    }}
-                  />
-                </SwiperSlide>
-              )
-            )}
+                (url, i) => (
+                  <SwiperSlide key={i}>
+                    <img
+                      src={getGymImage(url)}
+                      alt={`Image ${i + 1}`}
+                      style={{
+                        width: "100%",
+                        height: "140px",
+                        objectFit: "cover",
+                        borderRadius: "8px",
+                      }}
+                    />
+                  </SwiperSlide>
+                )
+              )}
           </Swiper>
 
           <div className="gym-card-distance">

@@ -101,10 +101,6 @@ const GymDetails = () => {
   if (error) return <div className="error-message-center">{error}</div>;
   if (!gym) return <div className="error-message-center">Gym details could not be loaded.</div>;
 
-  const upcomingDateSpecific = allAvailability.dateSpecific.filter((avail) =>
-    moment(avail.date).isSameOrAfter(moment(), "day")
-  );
-
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const handleDirections = () => {

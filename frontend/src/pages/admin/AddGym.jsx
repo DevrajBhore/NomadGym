@@ -40,26 +40,22 @@ const AddGym = () => {
     setError("");
     setSuccessMessage("");
 
-    const {
-      name,
-      city,
-      state,
-      pincode,
-      address,
-      description,
-      amenities,
-      pricePerHour,
-      capacity,
-      contactNumber,
-      email,
-      latitude,
-      longitude,
-      images, // files
-      previewUrls, // preview image URLs
-      ownerEmail,
-      ownerPhoneNumber,
-      razorpayAccountId,
-    } = formData;
+      const {
+        name,
+        city,
+        state,
+        pincode,
+        address,
+        pricePerHour,
+        capacity,
+        contactNumber,
+        email,
+        latitude,
+        longitude,
+        ownerEmail,
+        ownerPhoneNumber,
+        razorpayAccountId,
+      } = formData;
 
     if (
       !name ||

@@ -138,8 +138,7 @@ const Explore = () => {
             const description =
               city?.description || "Explore gyms available in this city.";
             const totalGyms = Number(city?.totalGyms) || 0;
-            const image = city?.image || "/placeholder.svg";
-            const popular = Boolean(city?.popular);
+              const popular = Boolean(city?.popular);
 
             return (
               <Link

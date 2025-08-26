@@ -24,7 +24,7 @@ const defaultCenter = {
 
 const MapView = () => {
   const [gyms, setGyms] = useState([]);
-  const [selectedGym, setSelectedGym] = useState(null);
+    const [_selectedGym, setSelectedGym] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [mapCenter, setMapCenter] = useState(defaultCenter);
   const [loading, setLoading] = useState(true);

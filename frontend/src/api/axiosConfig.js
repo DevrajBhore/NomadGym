@@ -6,7 +6,7 @@ import axios from "axios"
 const baseURL =
   import.meta.env.VITE_URL_API ??
   (import.meta.env.DEV
-    ? "http://localhost:2000/api/v1"
+    ? "http://localhost:2000/api"
     : "https://nomadgym.onrender.com/api/v1")
 
 const API = axios.create({

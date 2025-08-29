@@ -48,7 +48,7 @@ const Header = () => {
             <form onSubmit={handleSearch} className="search-form">
               <input
                 type="text"
-                placeholder="Search gyms or cities..."
+                placeholder="Search gyms..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="search-input"

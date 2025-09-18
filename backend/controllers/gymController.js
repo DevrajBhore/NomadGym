@@ -345,7 +345,6 @@ export const addGym = async (req, res, next) => {
     });
   } catch (error) {
     console.error("AddGym error:", error.message);
-    console.error(error.stack); // ✅ better debug info
     next(error);
   }
 };

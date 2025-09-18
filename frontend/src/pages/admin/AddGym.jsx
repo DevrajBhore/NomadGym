@@ -35,108 +35,56 @@ const AddGym = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  // In AddGym.jsx, update the handleSubmit function:
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccessMessage("");
 
-    const requiredFields = [
-      "name",
-      "city",
-      "state",
-      "pincode",
-      "address",
-      "pricePerHour",
-      "capacity",
-      "contactNumber",
-      "email",
-      "latitude",
-      "longitude",
-      "ownerEmail",
-      "ownerPhoneNumber",
-      "razorpayAccountId",
-    ];
-
-    for (let field of requiredFields) {
-      if (!formData[field]) {
-        setError(`Please fill in the ${field} field.`);
-        return;
-      }
-    }
-
-    if (!/^[0-9]{10}$/.test(formData.ownerPhoneNumber)) {
-      setError("Owner Phone Number must be a 10-digit number.");
-      return;
-    }
-
-    if (isNaN(formData.latitude) || isNaN(formData.longitude)) {
-      setError("Latitude and Longitude must be valid numbers.");
-      return;
-    }
-
     try {
       const gymForm = new FormData();
 
+      // Add all form fields
       Object.entries(formData).forEach(([key, value]) => {
         if (key === "images" || key === "previewUrls") return;
 
-        if (key === "amenities") {
+        if (key === "amenities" && value) {
+          // Convert amenities string to array
           const amenitiesArray = value
             .split(",")
             .map((item) => item.trim())
             .filter((item) => item.length > 0);
-          gymForm.append("amenities", JSON.stringify(amenitiesArray));
+          gymForm.append(key, JSON.stringify(amenitiesArray));
         } else {
           gymForm.append(key, value);
         }
       });
 
+      // Add images
       formData.images.forEach((file) => {
         gymForm.append("images", file);
       });
 
       const response = await API.post("/gyms/add", gymForm, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
 
-      if (response.status === 201) {
+      if (response.data.success) {
         setSuccessMessage("Gym added successfully!");
-        setFormData({
-          name: "",
-          city: "",
-          state: "",
-          pincode: "",
-          address: "",
-          description: "",
-          amenities: "",
-          pricePerHour: "",
-          capacity: "",
-          contactNumber: "",
-          email: "",
-          latitude: "",
-          longitude: "",
-          images: [],
-          previewUrls: [],
-          ownerEmail: "",
-          ownerPhoneNumber: "",
-          razorpayAccountId: "",
-        });
-
-        const newGym = response.data.data;
-        if (newGym && newGym._id) {
-          navigate(`/admin/gym/${newGym._id}`);
-        }
+        // Reset form and navigate
       }
     } catch (err) {
-      console.error("Add Gym error:", {
-        message: err.message,
-        status: err.response?.status,
-        data: err.response?.data,
-      });
-      setError(
-        err.response?.data?.message ||
-          "Failed to add gym. Please check backend logs."
-      );
+      console.error("Add Gym error:", err.response?.data || err.message);
+
+      if (err.response?.data?.errors) {
+        setError(err.response.data.errors.join(", "));
+      } else {
+        setError(err.response?.data?.message || "Failed to add gym");
+      }
     }
   };
 

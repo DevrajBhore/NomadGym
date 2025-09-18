@@ -215,6 +215,7 @@ export const getGymById = async (req, res) => {
 };
 
 // Add new gym (Admin only)
+// Enhanced addGym function with better error handling
 export const addGym = async (req, res) => {
   try {
     console.log("BODY:", req.body);
@@ -235,100 +236,161 @@ export const addGym = async (req, res) => {
       latitude,
       longitude,
       ownerEmail,
+      ownerPhoneNumber, // Added this field
+      razorpayAccountId // Added this field
     } = req.body;
 
-    // required fields check
-    const required = { name, description, address, city, state, pincode, contactNumber, email, ownerEmail };
-    for (const [k, v] of Object.entries(required)) {
-      if (v == null || String(v).trim() === "") {
-        return res.status(400).json({ success: false, message: `Missing field: ${k}` });
+    // Validate required fields
+    const requiredFields = {
+      name, description, address, city, state, pincode, 
+      contactNumber, email, ownerEmail, ownerPhoneNumber,
+      razorpayAccountId
+    };
+    
+    const missingFields = [];
+    for (const [key, value] of Object.entries(requiredFields)) {
+      if (value == null || String(value).trim() === "") {
+        missingFields.push(key);
       }
     }
 
-    // validate numbers
-    const price = Number(pricePerHour);
-    const cap = Number(capacity);
-    const lat = Number(latitude);
-    const lng = Number(longitude);
-
-    if (![price, cap, lat, lng].every(Number.isFinite)) {
+    if (missingFields.length > 0) {
       return res.status(400).json({
         success: false,
-        message: "Invalid number in pricePerHour/capacity/latitude/longitude",
+        message: `Missing required fields: ${missingFields.join(", ")}`
       });
     }
-    if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
-      return res.status(400).json({ success: false, message: "Coordinates out of range" });
+
+    // Validate numbers
+    const price = Number.parseFloat(pricePerHour);
+    const cap = Number.parseInt(capacity);
+    const lat = Number.parseFloat(latitude);
+    const lng = Number.parseFloat(longitude);
+
+    if (isNaN(price) || isNaN(cap) || isNaN(lat) || isNaN(lng)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid number format in pricePerHour, capacity, latitude, or longitude"
+      });
     }
 
-    // check owner
-    const owner = await User.findOne({ email: ownerEmail });
-    if (!owner) return res.status(404).json({ success: false, message: "User with this email does not exist" });
-    if (!owner.isVerified) return res.status(403).json({ success: false, message: "User is not verified" });
+    if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+      return res.status(400).json({
+        success: false,
+        message: "Coordinates out of range (lat: -90 to 90, lng: -180 to 180)"
+      });
+    }
 
+    // Check if owner exists
+    const owner = await User.findOne({ 
+      $or: [
+        { email: ownerEmail },
+        { phoneNumber: ownerPhoneNumber }
+      ]
+    });
+
+    if (!owner) {
+      return res.status(404).json({
+        success: false,
+        message: "User with this email or phone number does not exist"
+      });
+    }
+
+    if (!owner.isVerified) {
+      return res.status(403).json({
+        success: false,
+        message: "User is not verified"
+      });
+    }
+
+    // Update user role if needed
     if (owner.role !== "gym_owner") {
       owner.role = "gym_owner";
       await owner.save();
     }
 
-    // images
-    const imageUrls = Array.isArray(req.files)
-      ? req.files.map((f) => f.path || f.location || f.secure_url).filter(Boolean)
-      : [];
+    // Handle image uploads
+    const imageUrls = [];
+    if (req.files && Array.isArray(req.files)) {
+      req.files.forEach((file) => {
+        if (file.path || file.location || file.secure_url) {
+          imageUrls.push(file.path || file.location || file.secure_url);
+        }
+      });
+    }
 
+    // Create new gym
     const newGym = new Gym({
-      name,
-      description,
-      address,
-      city,
-      state,
-      pincode,
-      contactNumber,
-      email,
+      name: name.trim(),
+      description: description.trim(),
+      address: address.trim(),
+      city: city.trim(),
+      state: state.trim(),
+      pincode: pincode.trim(),
+      contactNumber: contactNumber.trim(),
+      email: email.trim(),
       pricePerHour: price,
       capacity: cap,
-      amenities: Array.isArray(amenities)
-        ? amenities
-        : amenities
-        ? String(amenities).split(",").map((s) => s.trim())
-        : [],
+      amenities: Array.isArray(amenities) 
+        ? amenities 
+        : amenities 
+          ? amenities.split(',').map(a => a.trim()).filter(a => a)
+          : [],
       imageUrls,
       latitude: lat,
       longitude: lng,
       ownerId: owner._id,
-      location: { type: "Point", coordinates: [lng, lat] },
+      location: {
+        type: "Point",
+        coordinates: [lng, lat]
+      },
+      razorpayAccountId: razorpayAccountId.trim()
     });
 
-    let savedGym;
-    try {
-      savedGym = await newGym.save();
-    } catch (e) {
-      if (e.code === 11000) {
-        return res.status(409).json({ success: false, message: "Duplicate gym", key: e.keyValue });
-      }
-      if (e.name === "ValidationError") {
-        return res.status(400).json({ success: false, message: e.message });
-      }
-      console.error("Mongo Save Error:", e);
-      return res.status(500).json({ success: false, message: e.message });
-    }
+    // Save gym
+    const savedGym = await newGym.save();
+    
+    // Populate owner info for response
+    await savedGym.populate('ownerId', 'name email phoneNumber');
 
     return res.status(201).json({
       success: true,
-      message: "Gym added successfully and user promoted to gym_owner",
-      gym: savedGym,
+      message: "Gym added successfully",
+      gym: savedGym
     });
+
   } catch (error) {
-    console.error("AddGym error:", error);
+    console.error("AddGym error details:", {
+      message: error.message,
+      name: error.name,
+      code: error.code,
+      stack: error.stack
+    });
+
+    // Handle specific MongoDB errors
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({
+        success: false,
+        message: "Validation failed",
+        errors: errors
+      });
+    }
+
+    if (error.code === 11000) {
+      return res.status(409).json({
+        success: false,
+        message: "Gym with similar details already exists"
+      });
+    }
+
     return res.status(500).json({
       success: false,
-      message: error.message || "Internal Server Error",
-      stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+      message: "Internal server error",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 };
-
-
 
 // Get all bookings for a gym (Owner only)
 export const getBookingsForGym = async (req, res) => {

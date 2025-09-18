@@ -215,7 +215,7 @@ export const getGymById = async (req, res) => {
 };
 
 // Add new gym (Admin only)
-export const addGym = async (req, res, next) => {
+export const addGym = async (req, res) => {
   try {
     console.log("BODY:", req.body);
     console.log("FILES:", req.files);
@@ -238,22 +238,10 @@ export const addGym = async (req, res, next) => {
     } = req.body;
 
     // required fields check
-    const required = {
-      name,
-      description,
-      address,
-      city,
-      state,
-      pincode,
-      contactNumber,
-      email,
-      ownerEmail,
-    };
+    const required = { name, description, address, city, state, pincode, contactNumber, email, ownerEmail };
     for (const [k, v] of Object.entries(required)) {
       if (v == null || String(v).trim() === "") {
-        return res
-          .status(400)
-          .json({ success: false, message: `Missing field: ${k}` });
+        return res.status(400).json({ success: false, message: `Missing field: ${k}` });
       }
     }
 
@@ -262,6 +250,7 @@ export const addGym = async (req, res, next) => {
     const cap = Number(capacity);
     const lat = Number(latitude);
     const lng = Number(longitude);
+
     if (![price, cap, lat, lng].every(Number.isFinite)) {
       return res.status(400).json({
         success: false,
@@ -269,23 +258,13 @@ export const addGym = async (req, res, next) => {
       });
     }
     if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Coordinates out of range" });
+      return res.status(400).json({ success: false, message: "Coordinates out of range" });
     }
 
     // check owner
     const owner = await User.findOne({ email: ownerEmail });
-    if (!owner)
-      return res.status(404).json({
-        success: false,
-        message: "User with this email does not exist",
-      });
-    if (!owner.isVerified)
-      return res.status(403).json({
-        success: false,
-        message: "User is not verified. Cannot assign gym ownership.",
-      });
+    if (!owner) return res.status(404).json({ success: false, message: "User with this email does not exist" });
+    if (!owner.isVerified) return res.status(403).json({ success: false, message: "User is not verified" });
 
     if (owner.role !== "gym_owner") {
       owner.role = "gym_owner";
@@ -294,9 +273,7 @@ export const addGym = async (req, res, next) => {
 
     // images
     const imageUrls = Array.isArray(req.files)
-      ? req.files
-          .map((f) => f.path || f.location || f.secure_url)
-          .filter(Boolean)
+      ? req.files.map((f) => f.path || f.location || f.secure_url).filter(Boolean)
       : [];
 
     const newGym = new Gym({
@@ -313,27 +290,25 @@ export const addGym = async (req, res, next) => {
       amenities: Array.isArray(amenities)
         ? amenities
         : amenities
-        ? String(amenities)
-            .split(",")
-            .map((s) => s.trim())
+        ? String(amenities).split(",").map((s) => s.trim())
         : [],
       imageUrls,
-      latitude: lat, // ✅ store as number
-      longitude: lng, // ✅ store as number
+      latitude: lat,
+      longitude: lng,
       ownerId: owner._id,
-      location: { type: "Point", coordinates: [lng, lat] }, // ✅ proper GeoJSON
+      location: { type: "Point", coordinates: [lng, lat] },
     });
 
     let savedGym;
     try {
       savedGym = await newGym.save();
     } catch (e) {
-      if (e.code === 11000)
-        return res
-          .status(409)
-          .json({ success: false, message: "Duplicate gym", key: e.keyValue });
-      if (e.name === "ValidationError")
+      if (e.code === 11000) {
+        return res.status(409).json({ success: false, message: "Duplicate gym", key: e.keyValue });
+      }
+      if (e.name === "ValidationError") {
         return res.status(400).json({ success: false, message: e.message });
+      }
       console.error("Mongo Save Error:", e);
       return res.status(500).json({ success: false, message: e.message });
     }
@@ -344,10 +319,15 @@ export const addGym = async (req, res, next) => {
       gym: savedGym,
     });
   } catch (error) {
-    console.error("AddGym error:", error.message);
-    next(error);
+    console.error("AddGym error:", error);
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Internal Server Error",
+      stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+    });
   }
 };
+
 
 
 // Get all bookings for a gym (Owner only)

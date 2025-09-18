@@ -20,8 +20,8 @@ const AddGym = () => {
     email: "",
     latitude: "",
     longitude: "",
-    images: [], // files
-    previewUrls: [], // preview image URLs
+    images: [],
+    previewUrls: [],
     ownerEmail: "",
     ownerPhoneNumber: "",
     razorpayAccountId: "",
@@ -40,45 +40,37 @@ const AddGym = () => {
     setError("");
     setSuccessMessage("");
 
-      const {
-        name,
-        city,
-        state,
-        pincode,
-        address,
-        pricePerHour,
-        capacity,
-        contactNumber,
-        email,
-        latitude,
-        longitude,
-        ownerEmail,
-        ownerPhoneNumber,
-        razorpayAccountId,
-      } = formData;
+    const requiredFields = [
+      "name",
+      "city",
+      "state",
+      "pincode",
+      "address",
+      "pricePerHour",
+      "capacity",
+      "contactNumber",
+      "email",
+      "latitude",
+      "longitude",
+      "ownerEmail",
+      "ownerPhoneNumber",
+      "razorpayAccountId",
+    ];
 
-    if (
-      !name ||
-      !city ||
-      !state ||
-      !pincode ||
-      !address ||
-      !pricePerHour ||
-      !capacity ||
-      !contactNumber ||
-      !email ||
-      !latitude ||
-      !longitude ||
-      !ownerEmail ||
-      !ownerPhoneNumber ||
-      !razorpayAccountId
-    ) {
-      setError("Please fill in all required fields.");
+    for (let field of requiredFields) {
+      if (!formData[field]) {
+        setError(`Please fill in the ${field} field.`);
+        return;
+      }
+    }
+
+    if (!/^[0-9]{10}$/.test(formData.ownerPhoneNumber)) {
+      setError("Owner Phone Number must be a 10-digit number.");
       return;
     }
 
-    if (!/^[0-9]{10}$/.test(ownerPhoneNumber)) {
-      setError("Owner Phone Number must be a 10-digit number.");
+    if (isNaN(formData.latitude) || isNaN(formData.longitude)) {
+      setError("Latitude and Longitude must be valid numbers.");
       return;
     }
 
@@ -86,24 +78,25 @@ const AddGym = () => {
       const gymForm = new FormData();
 
       Object.entries(formData).forEach(([key, value]) => {
-        if (key === "images" || key === "previewUrls") return; // skip previews
+        if (key === "images" || key === "previewUrls") return;
 
         if (key === "amenities") {
-          gymForm.append("amenities", value); // send as a single string
+          const amenitiesArray = value
+            .split(",")
+            .map((item) => item.trim())
+            .filter((item) => item.length > 0);
+          gymForm.append("amenities", JSON.stringify(amenitiesArray));
         } else {
           gymForm.append(key, value);
         }
       });
 
-      // append images
       formData.images.forEach((file) => {
         gymForm.append("images", file);
       });
 
       const response = await API.post("/gyms/add", gymForm, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       if (response.status === 201) {
@@ -132,14 +125,17 @@ const AddGym = () => {
         const newGym = response.data.data;
         if (newGym && newGym._id) {
           navigate(`/admin/gym/${newGym._id}`);
-        } else {
-          // Handle error: gym ID missing
         }
       }
     } catch (err) {
-      console.error("Add Gym error:", err.response?.data || err.message);
+      console.error("Add Gym error:", {
+        message: err.message,
+        status: err.response?.status,
+        data: err.response?.data,
+      });
       setError(
-        err.response?.data?.message || "Failed to add gym. Please try again."
+        err.response?.data?.message ||
+          "Failed to add gym. Please check backend logs."
       );
     }
   };
@@ -151,6 +147,7 @@ const AddGym = () => {
         {error && <p className="error-message">{error}</p>}
         {successMessage && <p className="success-message">{successMessage}</p>}
 
+        {/* Owner Details */}
         <div className="form-group">
           <label htmlFor="ownerEmail">Gym Owner's Email:</label>
           <input
@@ -179,6 +176,7 @@ const AddGym = () => {
           />
         </div>
 
+        {/* Gym Info */}
         <div className="form-group">
           <label htmlFor="name">Gym Name:</label>
           <input
@@ -346,6 +344,7 @@ const AddGym = () => {
           />
         </div>
 
+        {/* Upload Images */}
         <div className="form-group">
           <label htmlFor="images">Upload Gym Images (max 8):</label>
           <input
